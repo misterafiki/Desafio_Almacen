@@ -1,7 +1,7 @@
 import { response, request } from 'express';
 import { ConexionUsers as Conexion } from '../databases/conexion_user.js'
 
-import { handleError } from '../helpers/handleErrors.js';
+import { handleError,handleSuccess } from '../helpers/handleResponse.js';
 
 const conx = new Conexion();
 
@@ -10,7 +10,7 @@ const users_controller = {
         try {
             let users = await conx.getUsers()
             console.log('Listado correcto!');
-            res.status(200).json(users);
+            handleSuccess(res, 200, 'Usuarios encontrado correctamente', users);
         } catch (err) {
             handleError(err,res)
         }
@@ -21,7 +21,7 @@ const users_controller = {
         try {
             let users = conx.getUsuario(id)    
             console.log('Listado correcto!');
-            res.status(200).json(users);
+            handleSuccess(res, 200, 'Usuario encontrado correctamente', users);
         } catch (err) {
             handleError(err,res)
         }
@@ -47,7 +47,7 @@ const users_controller = {
         try {
             await conx.deleteUser(user)    
             console.log('Borrado correctamente!');
-            res.status(202).json({'msg':'Usuario eliminado'});
+            handleSuccess(res, 202, 'El usuario ha sido marcado como eliminado.');
             
         } catch (err) {
             handleError(err,res)

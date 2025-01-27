@@ -2,7 +2,7 @@ import {response,request, query} from 'express';
 import bcrypt from 'bcrypt';
 
 import { generateJWT_Roles } from '../helpers/generate_jwt.js';
-import { handleError } from '../helpers/handleErrors.js';
+import { handleError } from '../helpers/handleResponse.js';
 
 import { ConexionUsers } from '../databases/conexion_user.js';
 

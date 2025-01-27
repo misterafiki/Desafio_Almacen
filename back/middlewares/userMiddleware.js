@@ -1,6 +1,6 @@
 import {response, request} from 'express' 
 import { ConexionUsers } from '../databases/conexion_user.js';
-import { handleError } from '../helpers/handleErrors.js';
+import { handleError } from '../helpers/handleResponse.js';
 
 const conx = new ConexionUsers();
 
