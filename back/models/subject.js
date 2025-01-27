@@ -1,6 +1,6 @@
 'use strict';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import db from '../database/connection.js';
+import db from '../databases/connection.js';
 
 class Subject extends Model {
   /**

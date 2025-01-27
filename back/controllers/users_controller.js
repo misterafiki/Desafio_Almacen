@@ -1,87 +1,70 @@
 import { response, request } from 'express';
-import { ConexionUser as Conexion } from '../databases/conexion_user.js'
-import {generarJWT, generarJWT_Roles} from '../helpers/generate_jwt.js'
+import { ConexionUsers as Conexion } from '../databases/conexion_user.js'
+
+import { handleError } from '../helpers/handleErrors.js';
 
 const conx = new Conexion();
 
-const controladorUsuarios = { 
-    usuariosGet :  (req, res = response) => {
-        conx.getlistado({ where: { deletedAt: null } })    
-            
-            .then( msg => {
-                console.log('Listado correcto!');
-                res.status(200).json(msg);
-            })
-            .catch( err => {
-                console.log('No hay registros');
-                res.status(203).json({'msg':'No se han encontrado registros'});
-            });
+const users_controller = { 
+    getUsers :  async(req, res = response) => {
+        try {
+            let users = await conx.getUsers()
+            console.log('Listado correcto!');
+            res.status(200).json(users);
+        } catch (err) {
+            handleError(err,res)
+        }
     },
 
-    usuarioGet :  (req, res = response) => {
-        conx.getUsuario(req.params.id, { where: { deletedAt: null } })    
-            .then( msg => {
-                console.log('Listado correcto!');
-                res.status(200).json(msg);
-            })
-            .catch( err => {
-                console.log('No hay registro!');
-                res.status(203).json({'msg':'No se ha encontrado el registro'});
-            });
+    getUserById :  (req, res = response) => {
+        let id = req.params.id
+        try {
+            let users = conx.getUsuario(id)    
+            console.log('Listado correcto!');
+            res.status(200).json(users);
+        } catch (err) {
+            handleError(err,res)
+        }
     },
 
-    usuariosPost :  (req = request, res = response) => {
-        conx.registrarUsuario(req.body)    
-            .then( msg => {
-                console.log('Insertado correctamente!');
-                console.log(msg.Roles)
-                const token = generarJWT_Roles(msg.id,msg.Roles);
-                console.log(token);
-                res.status(201).json({msg,token});
-            })
-            .catch( err => {
-                console.log('Fallo en el registro!',err);
-                res.status(203).json(err);
-            });
-    },
-
-    usuarioLogin :  (req = request, res = response) => {
-        conx.logearUsuario(req.body)    
-            .then( msg => {
-                console.log('Logeado correctamente!');
-                const token = generarJWT_Roles(msg.id,msg.RolesAsignados.roles);
-                console.log(msg.RolesAsignados.roles);
-                res.status(201).json({msg, token});
-            })
-            .catch( err => {
-                console.log('Fallo en el registro!');
-                res.status(203).json(err);
-            });
-    },
+    // usuariosPost :  (req = request, res = response) => {
+    //     conx.registrarUsuario(req.body)    
+    //         .then( msg => {
+    //             console.log('Insertado correctamente!');
+    //             console.log(msg.Roles)
+    //             const token = generarJWT_Roles(msg.id,msg.Roles);
+    //             console.log(token);
+    //             res.status(201).json({msg,token});
+    //         })
+    //         .catch( err => {
+    //             console.log('Fallo en el registro!',err);
+    //             res.status(203).json(err);
+    //         });
+    // },
     
-    usuariosDelete : (req, res = response) => {
-        conx.borrarUsuario(req.params.id)    
-            .then( msg => {
-                console.log('Borrado correctamente!');
-                res.status(202).json(msg);
-            })
-            .catch( err => {
-                console.log('Fallo en el borrado!');
-                res.status(203).json(err);
-            });
+    usuariosDelete : async(req, res = response) => {
+        let user = req.user
+        try {
+            await conx.deleteUser(user)    
+            console.log('Borrado correctamente!');
+            res.status(202).json({'msg':'Usuario eliminado'});
+            
+        } catch (err) {
+            handleError(err,res)
+        }
     },
 
-    usuariosPut :  (req, res = response) => {
-        conx.modificarUsuario(req.params.id, req.body)    
-            .then( msg => {
-                console.log('Modificado correctamente!');
-                res.status(202).json(msg);
-            })
-            .catch( err => {
-                console.log('Fallo en la modificación!');
-                res.status(203).json(err);
-            });
-    }
+    // usuariosPut :  (req, res = response) => {
+    //     conx.modificarUsuario(req.params.id, req.body)    
+    //         .then( msg => {
+    //             console.log('Modificado correctamente!');
+    //             res.status(202).json(msg);
+    //         })
+    //         .catch( err => {
+    //             console.log('Fallo en la modificación!');
+    //             res.status(203).json(err);
+    //         });
+    // }
 }
 
-export default controladorUsuarios
+export default users_controller

@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import authController from '../controllers/authController.js';
+import auth_controller from '../controllers/auth_controller.js';
 
-import { existUser,validateUser,validateEmailUnique } from '../middlewares/userMiddleware.js';
+import { existUserByEmail} from '../middlewares/userMiddleware.js';
 
 export const router = Router();
 
-router.post('/register',[validateUser,validateEmailUnique],authController.register);
-router.post('/login',[existUser],authController.login);
+router.post('/login',[existUserByEmail],auth_controller.login);
 
 
