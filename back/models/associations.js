@@ -1,25 +1,25 @@
 import User from './user.js';
-import AssignedRoles from './assigned_roles.js';
-import Roles from './roles.js';
+import User_role from './user_role.js';
+import Roles from './role.js';
 
-User.hasMany(AssignedRoles, { 
-  as: 'AssignedRoles', 
+User.hasMany(User_role, { 
+  as: 'User_roles', 
   foreignKey: 'user_id' 
 });
 
-AssignedRoles.belongsTo(User, { 
+User_role.belongsTo(User, { 
   as: 'User', 
   foreignKey: 'user_id' 
 });
 
-AssignedRoles.belongsTo(Roles, { 
+User_role.belongsTo(Roles, { 
   as: 'Rol', 
   foreignKey: 'rol_id' 
 });
 
-Roles.hasMany(AssignedRoles, { 
-  as: 'AssignedRoles', 
+Roles.hasMany(User_role, { 
+  as: 'User_roles', 
   foreignKey: 'rol_id' 
 });
 
-export { AssignedRoles, User, Roles };
+export { User_role, User, Roles };

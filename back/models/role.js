@@ -1,15 +1,15 @@
 'use strict';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import db from '../database/connection.js';
+import db from '../databases/connection.js';
 
-class Roles extends Model {
+class Role extends Model {
   static associate(models) {
     //this.hasMany(models.RolesAsignados, { as: 'RolesAsignados', foreignKey: 'id' })
     //this.hasMany(models.RolesAsignados, { as: 'RolesAsignados', foreignKey: 'id_rol' });
   }
 }
 
-Roles.init({
+Role.init({
   id: {
     type: DataTypes.BIGINT,
     primaryKey: true
@@ -37,10 +37,10 @@ Roles.init({
   
 }, {
   sequelize: db,
-  modelName: 'Rol',
+  modelName: 'Role',
   tableName: 'roles',
   timestamps: true,
   paranoid: true
 });
 
-export default Roles;
+export default Role;

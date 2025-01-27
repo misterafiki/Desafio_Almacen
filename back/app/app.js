@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config()
-import { MiServer } from './server.js';
+import { Server } from './server.js';
 
 //Lanzamos el servidor.
-const server = new MiServerr();
+const server = new Server();
 server.listen();
 
 

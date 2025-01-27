@@ -1,12 +1,23 @@
 import {response, request} from 'express' 
-import ConexionUser from '../database/ConexionUser.js'
+import { ConexionUsers } from '../databases/conexion_user.js';
 import { handleError } from '../helpers/handleErrors.js';
 
-const conx = new ConexionUser();
-export const existUser = async (req , res , next) => { 
+const conx = new ConexionUsers();
+
+export const existUserByEmail = async (req , res , next) => { 
     const email = req.body.email
     try {
-        let user = await conx.getUserEmail(email) 
+        let user = await conx.getUserByEmail(email) 
+        req.user = user
+        next()       
+    }catch(err){
+        handleError(err,res)
+    }
+}
+export const existUserById = async (req , res , next) => { 
+    const id = req.params.id
+    try {
+        let user = await conx.getUserById(id) 
         req.user = user
         next()       
     }catch(err){

@@ -1,14 +1,14 @@
 'use strict';
 import { Sequelize, DataTypes, Model } from 'sequelize';
-import db from '../database/connection.js';
+import db from '../databases/connection.js';
 
-class AssignedRoles extends Model {
+class User_role extends Model {
   static associate(models) {
     // define association here
   }
 }
 
-AssignedRoles.init({
+User_role.init({
   idra: {
     type: DataTypes.BIGINT,
     primaryKey: true,
@@ -44,12 +44,12 @@ AssignedRoles.init({
   }
 }, {
   sequelize: db,
-  modelName: 'AssignedRoles',
-  tableName: 'assignedroles',
+  modelName: 'User_role',
+  tableName: 'users_roles',
   timestamps: true,
   paranoid: true
 });
 
-export default AssignedRoles;
+export default User_role;
 
 

@@ -1,21 +1,23 @@
 import {response,request} from 'express';
-import {ConexionRoles as Conexion} from '../databases/conexion_roles.js'
+import {ConexionRoles as Conexion} from '../databases/conexion_role.js'
+
+import { handleError } from '../helpers/handleErrors.js';
 
 const conx = new Conexion();
 
-const controladorRoles = { 
-        rolesGet :  (req, res = response) => {
-        conx.getRoles()    
-            .then( msg => {
-                console.log('Listado correcto!');
-                res.status(200).json(msg);
-            })
-            .catch( err => {
-                console.log('No hay registros');
-                res.status(203).json({'msg':'No se han encontrado registros'});
-            });
+const roles_controller = { 
+    rolesGet :  async (req, res = response) => {
+        try {
+            let roles = await conx.getRoles()
+
+            console.log('Listado de roles correcto');
+            res.status(200).json(roles);
+            
+        } catch (err) {
+            handleError(err,res)
+        }
     }
 
 }
 
-export default controladorRoles
+export default roles_controller
