@@ -1,5 +1,5 @@
 import { Component,OnInit  } from '@angular/core';
-
+import { Title } from '@angular/platform-browser';
 import {Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
@@ -17,8 +17,10 @@ export class LoginPageComponent {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService) { }
-
+  constructor(private authService: AuthService,private titleService: Title) { }
+  ngOnInit(): void {
+    this.titleService.setTitle('Logearse'); // Cambia el título aquí
+  }
   onSubmit(): void {
     this.authService.Login(this.loginForm.value)
   }

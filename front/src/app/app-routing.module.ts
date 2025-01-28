@@ -6,8 +6,13 @@ import { SelectRolPageComponent } from './auth/pages/selectRol-page/selectRol-pa
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' },
   { path: 'selectRol', component:SelectRolPageComponent},
+
+
+
+
+
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
