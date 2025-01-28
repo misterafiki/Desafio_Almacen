@@ -14,20 +14,20 @@ cloudinary.config( {
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-export const upFile = async (files, extensionesValidas = ['png','jpg','jpeg','gif'], carpeta = '') => {
+export const upFile = async (files,  validExtensions = ['png','jpg','jpeg','gif'], file = '') => {
 
     return new Promise( async (resolve, reject) => {
 
         const { archivo } = files;
         // console.log("Archivo:",archivo);
-        const nombreCortado = archivo.name.split('.');
+        const name = archivo.name.split('.');
         // console.log("Nombre cortado:",nombreCortado);
-        const extension = nombreCortado[ nombreCortado.length - 1 ];
+        const extension = name[ name.length - 1 ];
         // console.log("Extension:",extension);    
 
         //Validar la extension
-        if ( !extensionesValidas.includes( extension ) ) {
-            return reject(`La extensión ${ extension } no es permitida - ${extensionesValidas}`);
+        if ( ! validExtensions.includes( extension ) ) {
+            return reject(`La extensión ${ extension } no es permitida - ${ validExtensions}`);
         }
         
         const { tempFilePath } = archivo
@@ -38,7 +38,7 @@ export const upFile = async (files, extensionesValidas = ['png','jpg','jpeg','gi
             if (extension === 'txt') {
                 let options = {
                     resource_type: "raw",//<-- Esto permite subir cualquier archivo, si no se pone se le aplica el filtro automático de Cloudinary de iomagen.
-                    folder: carpeta
+                    folder: file
                 };
 
                 options.resource_type = "auto";
@@ -62,7 +62,7 @@ export const upFile = async (files, extensionesValidas = ['png','jpg','jpeg','gi
                 // console.log("CLOUDINARY_URL:", process.env.CLOUDINARY_URL);
                 let uploaded
                 try {
-                    uploaded = await cloudinary.uploader.upload(tempFilePath, { folder: carpeta });
+                    uploaded = await cloudinary.uploader.upload(tempFilePath, { folder: file });
                     //console.log("Archivo subido a Cloudinary:", uploaded);
                 } catch (error) {
                     console.error("Error al subir archivo a Cloudinary:", error);
