@@ -7,7 +7,7 @@ const conx = new ConexionUsers();
 export const existUserByEmail = async (req , res , next) => { 
     const email = req.body.email
     try {
-        let user = await conx.getUserByEmail(email) 
+        let user = await conx.getUesrByEmail(email) 
         req.user = user
         next()       
     }catch(err){

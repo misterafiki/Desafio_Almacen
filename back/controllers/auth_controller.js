@@ -14,21 +14,22 @@ const auth_controller = {
         const user = req.user
         try {
     
-            const isMatch = password == user.dataValues.password;
-    
-            if (isMatch) {
-                console.log('Login de usuario', user);
-                let token = generateJWT_Roles(user.dataValues)
-                
-                return res.status(200).json({
-                    msg: 'Te has logeado correctamente',
-                    token: token,
-                    status: true
+            // const isMatch = password == user.dataValues.password;
+            const isMatch = await bcrypt.compare(password, user.dataValues.password);
+            if (!isMatch) {
+                return res.status(404).json({
+                    'msg': 'Fallo en el login',
+                    status: false
                 });
             }
-            res.status(404).json({
-                'msg': 'Usuario no encontrado',
-                status: false
+            
+            console.log('Login de usuario', user);
+            let token = generateJWT_Roles(user.dataValues)
+            
+            res.status(200).json({
+                msg: 'Te has logeado correctamente',
+                token: token,
+                status: true
             });
             
         } catch (err) {
