@@ -29,6 +29,7 @@ const auth_controller = {
             res.status(200).json({
                 msg: 'Te has logeado correctamente',
                 token: token,
+                roles:user.dataValues.User_roles.map(userRole => userRole.Rol.name),
                 status: true
             });
             

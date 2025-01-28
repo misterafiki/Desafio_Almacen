@@ -21,6 +21,9 @@ export class AuthService {
         response => {
           if (response.token) {
             localStorage.setItem('authToken', response.token);
+            if(response.roles){
+              localStorage.setItem('roles', JSON.stringify(response.roles));
+            }
             this.router.navigate(['/selectRol'])
           }
         },
