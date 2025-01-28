@@ -11,6 +11,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 
 export class SelectRolPageComponent implements OnInit {
+  roles: string[] = [];
+
   constructor(
     private titleService: Title,
     private router: Router
@@ -24,11 +26,18 @@ export class SelectRolPageComponent implements OnInit {
     if (rolesString) {
 
       const roles = JSON.parse(rolesString);
-      console.log(roles);
+      // console.log(roles);
 
       if (roles.length <= 1) {
         this.router.navigate(['/login']);
       }
+      this.roles = roles;
+    }
+    const rolSelected = localStorage.getItem('rolSelected');
+    if (rolSelected) {
+      console.log('Rol previamente seleccionado:', rolSelected);
+      this.router.navigate(['/login']);
     }
   }
+
 }
