@@ -48,7 +48,7 @@ class Server {
         this.app.use( fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/',
-            createParentPath: true  //Con esta opción si la carpeta de destino no existe, la crea.
+            createParentPath: true
         }));
 
         this.app.use(express.static('public'));

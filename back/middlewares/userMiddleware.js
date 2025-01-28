@@ -27,7 +27,7 @@ export const existUserById = async (req , res , next) => {
 export const validateEmailUnique = async (req , res , next) => { 
     const email = req.body.email
     try {
-        await conx.getUserEmail(email)
+        await conx.getUserByEmail(email)
         return res.status(400).json({ msg: 'este correo ya esta registrado'}); 
     }catch(err){
         if (err.message == 'Usuario no encontrado') {

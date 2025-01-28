@@ -16,10 +16,10 @@ const users_controller = {
         }
     },
 
-    getUserById :  (req, res = response) => {
+    getUserById :  async(req, res = response) => {
         let id = req.params.id
         try {
-            let users = conx.getUsuario(id)    
+            let users = await conx.getUserById(id)
             console.log('Listado correcto!');
             res.status(200).json(users);
         } catch (err) {
@@ -27,44 +27,36 @@ const users_controller = {
         }
     },
 
-    // usuariosPost :  (req = request, res = response) => {
-    //     conx.registrarUsuario(req.body)    
-    //         .then( msg => {
-    //             console.log('Insertado correctamente!');
-    //             console.log(msg.Roles)
-    //             const token = generarJWT_Roles(msg.id,msg.Roles);
-    //             console.log(token);
-    //             res.status(201).json({msg,token});
-    //         })
-    //         .catch( err => {
-    //             console.log('Fallo en el registro!',err);
-    //             res.status(203).json(err);
-    //         });
-    // },
+    createUser: async (req, res = response) => {
+        try {
+            let user = await conx.addUser(req.body);
+            console.log('Controller: User created');
+            res.status(201).json({ user });
+        } catch (err) {
+            handleError(err, res);
+        }
+    },
     
-    usuariosDelete : async(req, res = response) => {
+    deleteUser : async(req, res = response) => {
         let user = req.user
         try {
             await conx.deleteUser(user)    
-            console.log('Borrado correctamente!');
-            res.status(202).json({'msg':'Usuario eliminado'});
-            
+            console.log('User deleted!');
+            res.status(202).json({'msg':'User Deleted'});
         } catch (err) {
             handleError(err,res)
         }
     },
 
-    // usuariosPut :  (req, res = response) => {
-    //     conx.modificarUsuario(req.params.id, req.body)    
-    //         .then( msg => {
-    //             console.log('Modificado correctamente!');
-    //             res.status(202).json(msg);
-    //         })
-    //         .catch( err => {
-    //             console.log('Fallo en la modificación!');
-    //             res.status(203).json(err);
-    //         });
-    // }
+    updateUser: async (req, res = response) => {
+        try {
+            let user = await conx.updateUser(req.user, req.body);
+            console.log('Controller: User updated');
+            res.status(200).json({ msg: 'User updated', user });
+        } catch (err) {
+            handleError(err, res);
+        }
+    }
 }
 
 export default users_controller

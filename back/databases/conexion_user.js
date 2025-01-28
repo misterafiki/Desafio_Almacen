@@ -1,14 +1,27 @@
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 
-import { User_role, User, Roles } from '../models/associations.js';
-
-import db from './connection.js';
+import {Roles, User, User_role} from '../models/associations.js';
 
 class ConexionUsers {
 
     constructor() {
 
     }
+
+  addUser = async (body) => {
+        let result = 0;
+        try {
+            result = await User.create(body);
+        } catch (err) {
+            if (err instanceof Sequelize.UniqueConstraintError) {
+                console.log("Error: The user already exists in the database");
+            } else {
+                console.log("Error: Unknown error", err)
+            }
+            throw err;
+        }
+        return result;
+  };
 
   getUserByEmail = async (email) => {
     try {
@@ -73,7 +86,7 @@ class ConexionUsers {
       ],
       });
       if (!result) {
-        throw new Error('Usuario no encontrado');
+          throw new Error('Usuario no encontrado');
       }
   
       return result;
@@ -82,23 +95,19 @@ class ConexionUsers {
     }
   }
 
-  updateUser = async (user, updateUser) => {
+  updateUser = async (user, body) => {
     try {
-      let result = await user.update(updateUser);
-  
-      return result;
+        return await user.update(body);
     } catch (err) {
-      throw err
+        throw err
     }
   }
 
   deleteUser = async (user) => {
     try {
-      let result = await user.destroy();
-
-      return result;
+        return await user.destroy();
     } catch (err) {
-      throw err
+        throw err
     }
   }
 }
