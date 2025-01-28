@@ -1,16 +1,43 @@
-<div class="login-container">
-  <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email">
-    </div>
+<div class="d-flex justify-content-center align-items-center vh-100 custom-bg-image ">
+  <mat-card class="login-card w-100 p-4">
+    <mat-card-header>
+      <mat-card-title>Inicio de sesión</mat-card-title>
+    </mat-card-header>
 
-    <div>
-      <label for="password">Password</label>
-      <input id="password" formControlName="password" type="password">
-    </div>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" required>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email es requerido
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Formato de email inválido
+          </mat-error>
+        </mat-form-field>
 
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
-  </form>
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Contraseña es requerida
+          </mat-error>
+        </mat-form-field>
+
+        <div class="d-flex justify-content-center">
+          <button
+            class="btn-with-icon btn btn-primary"
+            type="submit"
+            [disabled]="!loginForm.valid"
+          >
+            <mat-icon>person</mat-icon>Ingresar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>

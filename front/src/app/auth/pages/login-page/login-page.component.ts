@@ -1,6 +1,7 @@
 import { Component,OnInit  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import {Validators, FormGroup, FormControl } from '@angular/forms';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -12,14 +13,23 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './login-page.component.css'
 })
 export class LoginPageComponent {
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
-  });
 
-  constructor(private authService: AuthService,private titleService: Title) { }
+  loginForm: FormGroup;
+  hidePassword = true;
+
   ngOnInit(): void {
-    this.titleService.setTitle('Logearse'); // Cambia el título aquí
+    this.titleService.setTitle('Logearse');
+  }
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private titleService: Title
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
   onSubmit(): void {
     this.authService.Login(this.loginForm.value)

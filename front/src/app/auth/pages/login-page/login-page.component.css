@@ -1,0 +1,18 @@
+.custom-bg-image {
+  background-image: url("/fondo_login.svg");
+  background-color: #f5f5f5;
+  background-size: cover;
+  background-position: center;
+}
+.login-card {
+  min-height: 600px;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.btn-with-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
