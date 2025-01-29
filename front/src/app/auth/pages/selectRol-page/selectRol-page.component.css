@@ -1,1 +1,21 @@
-/* Add any styles for the selectRol-page component here */
+.custom-bg-image {
+  background-image: url("/fondo_login.svg");
+  /* background-color: #f5f5f5; */
+  background-size: cover;
+  background-position: center;
+  /* background-color: rgba(0,0,0, 0.2);
+  background-blend-mode: multiply; */
+}
+.bg-color{
+  background-color:rgb(255, 255, 255,0.5);
+  backdrop-filter: blur(2px);
+}
+.btn-color{
+  background-color: rgb(255, 255, 255);
+}
+.btn-with-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}

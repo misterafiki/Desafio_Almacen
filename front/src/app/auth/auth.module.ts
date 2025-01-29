@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 import { MaterialModule } from '../material/material.module';
+import { SharedModule } from '../shared/shared.module';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import {CardComponent}from './components/card/card.component';
@@ -22,7 +23,9 @@ import { SelectRolPageComponent } from './pages/selectRol-page/selectRol-page.co
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
+
   ],
   exports: [
     SelectRolPageComponent

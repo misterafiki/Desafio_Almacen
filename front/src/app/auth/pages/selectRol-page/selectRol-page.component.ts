@@ -39,5 +39,8 @@ export class SelectRolPageComponent implements OnInit {
       this.router.navigate(['/login']);
     }
   }
-
+  back(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }

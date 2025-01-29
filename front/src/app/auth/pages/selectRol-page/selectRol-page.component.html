@@ -1,7 +1,17 @@
-<div class="container-fluid d-flex flex-column justify-content-center">
-  <h2 class="text-center">Seleccionar Rol</h2>
-  <div class="container-fluid d-flex flex-wrap justify-content-around mt-5 p-3">
-    <card-list [roles]="roles"></card-list>
-
+<!-- <app-nav-bar></app-nav-bar> -->
+<div class="d-flex justify-content-center align-items-center vh-100 custom-bg-image flex-column">
+  <div class=" container p-3 bg-color rounded-4">
+    <div class="d-flex align-items-start">
+      <button class="btn btn-dark btn-with-icon btn-sm" (click)="back()">
+        <mat-icon>chevron_left</mat-icon>
+        VOLVER</button>
+    </div>
+    <div class="d-flex justify-content-center">
+      <h2 class="text-center text-bg-info rounded-4 p-2 text-light">Seleccionador de Rol</h2>
+    </div>
+    <div class="container-fluid d-flex flex-wrap justify-content-around mt-3 p-3">
+      <card-list [roles]="roles"></card-list>
+    </div>
   </div>
 </div>
+<!-- <app-footer></app-footer> -->
