@@ -1,4 +1,4 @@
-import { Component,OnInit  } from '@angular/core';
+import { Component  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -33,5 +33,8 @@ export class LoginPageComponent {
   }
   onSubmit(): void {
     this.authService.Login(this.loginForm.value)
+  }
+  recoverPassword():void{
+    console.log("funciona")
   }
 }

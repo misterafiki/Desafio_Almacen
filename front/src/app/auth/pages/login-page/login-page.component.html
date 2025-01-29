@@ -1,14 +1,14 @@
 <div class="d-flex justify-content-center align-items-center vh-100 custom-bg-image ">
   <mat-card class="login-card w-100 p-4">
-    <mat-card-header>
-      <mat-card-title>Inicio de sesión</mat-card-title>
+    <mat-card-header class="my-4">
+      <mat-card-title class="text-uppercase">Inicio de sesión</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-form-field appearance="outline" class="w-100 mb-4">
           <mat-label>Email</mat-label>
-          <input matInput formControlName="email" required>
+          <input matInput formControlName="email">
           <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
             Email es requerido
           </mat-error>
@@ -17,9 +17,9 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100 mb-3">
+        <mat-form-field appearance="outline" class="w-100 ">
           <mat-label>Contraseña</mat-label>
-          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" required>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
           <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
@@ -27,6 +27,15 @@
             Contraseña es requerida
           </mat-error>
         </mat-form-field>
+
+        <div class="text-end mb-5">
+          <button
+          class="btn btn-link text-dark text-decoration-underline fs-7"
+          type="button"
+          (click)="recoverPassword()">
+          ¿Has olvidado tu contraseña?
+        </button>
+        </div>
 
         <div class="d-flex justify-content-center">
           <button
