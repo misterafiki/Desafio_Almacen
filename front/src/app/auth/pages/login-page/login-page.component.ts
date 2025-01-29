@@ -2,6 +2,7 @@ import { Component  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -16,6 +17,7 @@ export class LoginPageComponent {
 
   loginForm: FormGroup;
   hidePassword = true;
+  loginError = ""
 
   ngOnInit(): void {
     this.titleService.setTitle('Logearse');
@@ -24,7 +26,8 @@ export class LoginPageComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private titleService: Title
+    private titleService: Title,
+    private router:Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,6 +36,20 @@ export class LoginPageComponent {
   }
   onSubmit(): void {
     this.authService.Login(this.loginForm.value)
+          .subscribe(
+            response => {
+              if (response.token) {
+                localStorage.setItem('authToken', response.token);
+                if(response.roles){
+                  localStorage.setItem('roles', JSON.stringify(response.roles));
+                }
+                this.router.navigate(['/selectRol'])
+              }
+            },
+            err => {
+              this.loginForm.reset()
+              this.loginError = err.error.msg
+            });
   }
   recoverPassword():void{
     console.log("funciona")

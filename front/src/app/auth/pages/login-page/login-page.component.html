@@ -28,16 +28,20 @@
           </mat-error>
         </mat-form-field>
 
-        <div class="text-end mb-5">
+        <div class="text-end mb-3">
           <button
           class="btn btn-link text-dark text-decoration-underline fs-7"
           type="button"
           (click)="recoverPassword()">
           ¿Has olvidado tu contraseña?
-        </button>
+          </button>
         </div>
 
-        <div class="d-flex justify-content-center">
+        <div *ngIf="loginError" class="alert alert-danger">
+          {{loginError}}
+        </div>
+
+        <div class="d-flex justify-content-center pt-5">
           <button
             class="btn-with-icon btn btn-primary"
             type="submit"
