@@ -1,7 +1,7 @@
 import {response,request} from 'express';
 import {ConexionUsersRoles as Conexion} from '../databases/conexion_users_roles.js'
 
-import { handleError } from '../helpers/handleErrors.js';
+import { handleError } from '../helpers/handleResponse.js';
 
 const conx = new Conexion();
 

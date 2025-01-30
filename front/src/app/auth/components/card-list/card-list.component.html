@@ -1,0 +1,9 @@
+<div class="row">
+  <card
+    *ngFor="let role of roles"
+    [role]="role"
+    class="col"
+    (selectRole)="onRoleSelected($event)"
+    style="width: 18rem;"
+  ></card>
+</div>

@@ -1,7 +1,7 @@
 import {response,request} from 'express';
 import {ConexionRoles as Conexion} from '../databases/conexion_role.js'
 
-import { handleError } from '../helpers/handleErrors.js';
+import { handleError } from '../helpers/handleResponse.js';
 
 const conx = new Conexion();
 
@@ -11,7 +11,7 @@ const roles_controller = {
             let roles = await conx.getRoles()
 
             console.log('Listado de roles correcto');
-            res.status(200).json(roles);
+            handleSuccess(res, 200, 'Roles encontrado correctamente', users);
             
         } catch (err) {
             handleError(err,res)

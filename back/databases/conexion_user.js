@@ -101,6 +101,21 @@ class ConexionUsers {
       throw err
     }
   }
+  changeImg = async (id, imge) => {
+    try{
+      let resultado = await User.findByPk(id);
+      if (!resultado) {
+        throw new Error('Usuario no encontrado');
+      }
+      const img = {img:imge};
+      await resultado.update(img);
+      
+      return resultado;
+    } catch (err){
+      throw res
+    }
+  };
+  
 }
 
 export { ConexionUsers };
