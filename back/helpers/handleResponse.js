@@ -1,6 +1,14 @@
+import {Sequelize} from "sequelize";
 
 export const handleError = (err,res) => {
     console.log(err);
+  
+    if (err instanceof Sequelize.UniqueConstraintError) {
+        return res.status(400).json({
+            'msg': 'El correo electrónico ya está en uso',
+            status: false
+        });
+    };
     if (err.message == 'No se encontraron tareas') {
         return res.status(404).json({
             'msg': 'No se encontraron tareas',
@@ -34,7 +42,7 @@ export const handleSuccess = (res, statusCode, message, data = null) => {
                 'status': true,
                 'data': data || null
             });
-    
+
         case 201:
             // Respuesta con exitosa 201 Creado
             return res.status(201).json({
@@ -42,7 +50,7 @@ export const handleSuccess = (res, statusCode, message, data = null) => {
                 'status': true,
                 'data': data || null
             });
-    
+        
         case 202:
             // Respuesta con exitosa 202 Procesando
             return res.status(202).json({
@@ -50,14 +58,14 @@ export const handleSuccess = (res, statusCode, message, data = null) => {
                 'status': true,
                 'data': data || null
             });
-    
+        
         case 100:
             // Respuesta con exitosa 100 Continua
             return res.status(100).json({
                 'msg': message,
                 'status': true
             });
-    
+        
         default:
             // Si el statusCode no es ninguno de los anteriores, puedes manejarlo como desees.
             return res.status(418).json({
