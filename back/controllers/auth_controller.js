@@ -30,6 +30,7 @@ const auth_controller = {
                 msg: 'Te has logeado correctamente',
                 token: token,
                 roles:user.dataValues.User_roles.map(userRole => userRole.Rol.name),
+                name:user.dataValues.name,
                 status: true
             });
             

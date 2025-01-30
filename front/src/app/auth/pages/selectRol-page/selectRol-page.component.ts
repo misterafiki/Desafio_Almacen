@@ -1,6 +1,7 @@
-import { Component,OnInit  } from '@angular/core';
+import { Component, Input, OnInit ,Output, EventEmitter} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'selectRol-page',
@@ -15,7 +16,8 @@ export class SelectRolPageComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ){}
 
   ngOnInit(): void {
@@ -29,16 +31,25 @@ export class SelectRolPageComponent implements OnInit {
       // console.log(roles);
 
       if (roles.length <= 1) {
-        this.router.navigate(['/login']);
+        localStorage.setItem('rolSelected', roles);
+        this.authService.setSelectedRole(roles);
+        this.router.navigate(['/home']);
       }
       this.roles = roles;
     }
     const rolSelected = localStorage.getItem('rolSelected');
     if (rolSelected) {
       console.log('Rol previamente seleccionado:', rolSelected);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }
   }
+  onRoleSelected(role: string): void {
+    // console.log('Rol seleccionado en el padre:', role);
+    localStorage.setItem('rolSelected', role);
+    this.authService.setSelectedRole(role);
+    this.router.navigate(['/home']);
+  }
+
   back(): void {
     localStorage.clear();
     this.router.navigate(['/login']);

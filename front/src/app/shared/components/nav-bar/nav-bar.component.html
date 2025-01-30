@@ -1,6 +1,6 @@
 <header class="navbar navbar-expand-lg navbar-dark bg-color p-3">
   <div class="container">
-    <a class="navbar-brand" href="#">Mi Aplicación</a>
+    <a class="navbar-brand" href="/home">Desafio INV</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -25,7 +25,7 @@
           </a>
           <ul class="dropdown-menu">
             <li *ngFor="let role of user.roles">
-              <a class="dropdown-item" href="#" (click)="changeRole(role)">{{ role | titlecase }}</a>
+              <a class="dropdown-item"  (click)="changeRole(role)">{{ role | titlecase }}</a>
             </li>
           </ul>
         </li>
@@ -34,8 +34,12 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Bienvenido, {{ user.name }}</a>
         </li>
+
+        <!-- Mostrar rol seleccionado -->
+        <li class="nav-item" *ngIf="selectedRole">
+          <a class="nav-link">Rol Seleccionado: {{ selectedRole | titlecase }}</a>
+        </li>
       </ul>
     </div>
   </div>
 </header>
-
