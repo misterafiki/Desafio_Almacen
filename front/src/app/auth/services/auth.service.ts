@@ -11,7 +11,8 @@ import { Observable,BehaviorSubject } from 'rxjs';
 export class AuthService {
   private serviceUrl: string = 'http://localhost:9090/api/auth';
 
-  private selectedRoleSubject = new BehaviorSubject<string | null>(null);
+  // Obtiene el rol guardado en localStorage al iniciar
+  private selectedRoleSubject = new BehaviorSubject<string | null>(this.getSelectedRoleFromStorage());
   selectedRole$ = this.selectedRoleSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -23,12 +24,23 @@ export class AuthService {
 
   }
 
-   // Método para actualizar el rol seleccionado
-   setSelectedRole(role: string): void {
+   // Guarda el rol seleccionado en `localStorage` y actualiza el observable
+   setSelectedRole(role: string | null): void {
+    if (role) {
+      localStorage.setItem('rolSelected', role);
+    } else {
+      localStorage.removeItem('rolSelected');
+    }
+
     this.selectedRoleSubject.next(role);
   }
 
-  // Método para obtener el rol seleccionado
+
+  // Obtiene el rol seleccionado desde `localStorage`
+  getSelectedRoleFromStorage(): string | null {
+    return localStorage.getItem('rolSelected');
+  }
+
   getSelectedRole(): string | null {
     return this.selectedRoleSubject.value;
   }

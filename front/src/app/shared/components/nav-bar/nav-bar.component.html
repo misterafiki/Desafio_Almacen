@@ -1,43 +1,46 @@
-<header class="navbar navbar-expand-lg navbar-dark bg-color p-3">
-  <div class="container">
-    <a class="navbar-brand" href="/home">Desafio INV</a>
+<header class="navbar navbar-expand-xxl navbar-dark bg-color p-3">
+  <div class="container-fluid d-flex justify-content-between">
 
+    <!-- Contenedor para logo y nombre -->
+    <div class="d-flex align-items-center me-auto">
+      <img src="/logo.svg" alt="Desafio Inventario" class="logo me-2">
+      <a class="navbar-brand" href="/home">CIFP Virgen de Gracia </a>
+    </div>
+
+    <!-- Botón de menú en dispositivos pequeños -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Contenido de la barra de navegación -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <!-- Opción visible solo para administradores -->
-        <li class="nav-item" *ngIf="hasRole('admin')">
-          <a class="nav-link" href="#">Configuración</a>
+        <li class="nav-item">
+          <a class="nav-link" href="">Prerfil</a>
         </li>
 
-        <!-- Opción visible solo para direccion -->
-        <li class="nav-item" *ngIf="hasRole('direccion')">
-          <a class="nav-link" href="#">Panel de Direccion</a>
+        <li class="nav-item" *ngIf="hasRole('Administrador')">
+          <a class="nav-link" href="">Panel de Administrador</a>
         </li>
-
-        <!-- Opción de cambio de rol si el usuario tiene más de un rol -->
+        <!-- cambio de rol -->
         <li class="nav-item dropdown" *ngIf="multipleRoles()">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Cambiar Rol
+            Cambiar Rol ({{ selectedRole | titlecase }})
           </a>
           <ul class="dropdown-menu">
             <li *ngFor="let role of user.roles">
-              <a class="dropdown-item"  (click)="changeRole(role)">{{ role | titlecase }}</a>
+              <a class="dropdown-item" (click)="changeRole(role)">{{ role | titlecase }}</a>
             </li>
           </ul>
         </li>
 
-        <!-- Información del usuario -->
-        <li class="nav-item">
-          <a class="nav-link" href="#">Bienvenido, {{ user.name }}</a>
-        </li>
-
-        <!-- Mostrar rol seleccionado -->
-        <li class="nav-item" *ngIf="selectedRole">
-          <a class="nav-link">Rol Seleccionado: {{ selectedRole | titlecase }}</a>
+        <!-- cerrar sesion -->
+        <li class="nav-item d-flex align-items-center">
+          <button class=" btn btn-warning btn-sm text-light"  (click)="logout()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+            <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+          </svg> Cerrar Sesión</button>
         </li>
       </ul>
     </div>

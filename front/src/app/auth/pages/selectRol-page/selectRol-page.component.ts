@@ -30,9 +30,8 @@ export class SelectRolPageComponent implements OnInit {
       const roles = JSON.parse(rolesString);
       // console.log(roles);
 
-      if (roles.length <= 1) {
-        localStorage.setItem('rolSelected', roles);
-        this.authService.setSelectedRole(roles);
+      if (this.roles.length === 1) {
+        this.authService.setSelectedRole(this.roles[0]);
         this.router.navigate(['/home']);
       }
       this.roles = roles;
