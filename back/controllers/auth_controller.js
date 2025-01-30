@@ -13,8 +13,6 @@ const auth_controller = {
         const password = req.body.password
         const user = req.user
         try {
-
-            //const isMatch = password == user.dataValues.password;
             const isMatch = await bcrypt.compare(password, user.dataValues.password);
             if (!isMatch) {
                 return res.status(404).json({
@@ -22,10 +20,8 @@ const auth_controller = {
                     status: false
                 });
             }
-
             console.log('Login de usuario', user);
             let token = generateJWT_Roles(user.dataValues)
-
             res.status(200).json({
                 msg: 'Te has logeado correctamente',
                 token: token,

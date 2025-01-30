@@ -8,7 +8,7 @@ import fileUpload from 'express-fileupload';
 import {router as userRoutes} from '../routes/userRoutes.js';
 // import {router as rolRoutes} from '../routes/rolesRoutes.js';
 // import {router as rolesAsignadosRoutes} from '../routes/roles_asignados_routes.js';
-// import {router as photoRoutes} from '../routes/photo-routes.js';
+import {router as photoRoutes} from '../routes/photoRoutes.js';
 import {router as authRouters} from '../routes/authRoutes.js'
 
 //https://sequelize.org/docs/v6/getting-started/
@@ -64,7 +64,7 @@ class Server {
         this.app.use(this.authPath , authRouters);
         // this.app.use(this.rolesPath , rolRoutes);
         // this.app.use(this.rolesAsignados, rolesAsignadosRoutes);
-        // this.app.use(this.photoPath, photoRoutes);
+        this.app.use(this.photoPath, photoRoutes);
     }
 
 

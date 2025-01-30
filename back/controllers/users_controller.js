@@ -1,7 +1,7 @@
-import {response} from 'express';
-import {ConexionUsers as Conexion} from '../databases/conexion_user.js';
+import { response, request } from 'express';
+import { ConexionUsers as Conexion } from '../databases/conexion_user.js'
+import { handleError,handleSuccess } from '../helpers/handleResponse.js';
 import * as generate from 'generate-password'
-import {handleError} from '../helpers/handleResponse.js';
 import {sendMail} from "../helpers/nodeMailer.js";
 import bcrypt from 'bcrypt';
 
@@ -12,7 +12,7 @@ const users_controller = {
         try {
             let users = await conx.getUsers()
             console.log('Listado correcto!');
-            res.status(200).json(users);
+            handleSuccess(res, 200, 'Usuarios encontrado correctamente', users);
         } catch (err) {
             handleError(err,res)
         }
@@ -23,7 +23,7 @@ const users_controller = {
         try {
             let users = await conx.getUserById(id)
             console.log('Listado correcto!');
-            res.status(200).json(users);
+            handleSuccess(res, 200, 'Usuario encontrado correctamente', users);
         } catch (err) {
             handleError(err,res)
         }
@@ -57,8 +57,8 @@ const users_controller = {
         let user = req.reqUser
         try {
             await conx.deleteUser(user)    
-            console.log('User deleted!');
-            res.status(202).json({'msg':'User Deleted'});
+            console.log('Borrado correctamente!');
+            handleSuccess(res, 202, 'El usuario ha sido marcado como eliminado.');
         } catch (err) {
             handleError(err,res)
         }

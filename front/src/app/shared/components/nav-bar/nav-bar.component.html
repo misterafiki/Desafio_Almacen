@@ -1,0 +1,41 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-color p-3">
+  <div class="container">
+    <a class="navbar-brand" href="#">Mi Aplicación</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Opción visible solo para administradores -->
+        <li class="nav-item" *ngIf="hasRole('admin')">
+          <a class="nav-link" href="#">Configuración</a>
+        </li>
+
+        <!-- Opción visible solo para direccion -->
+        <li class="nav-item" *ngIf="hasRole('direccion')">
+          <a class="nav-link" href="#">Panel de Direccion</a>
+        </li>
+
+        <!-- Opción de cambio de rol si el usuario tiene más de un rol -->
+        <li class="nav-item dropdown" *ngIf="multipleRoles()">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Cambiar Rol
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let role of user.roles">
+              <a class="dropdown-item" href="#" (click)="changeRole(role)">{{ role | titlecase }}</a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Información del usuario -->
+        <li class="nav-item">
+          <a class="nav-link" href="#">Bienvenido, {{ user.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
