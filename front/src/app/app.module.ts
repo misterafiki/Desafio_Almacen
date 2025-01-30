@@ -9,6 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 
 import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    ProfileModule
   ],
   providers: [
     provideAnimationsAsync(),

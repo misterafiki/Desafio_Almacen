@@ -4,12 +4,3 @@
   background-size: cover;
   background-position: center;
 }
-.login-card {
-  min-height: 500px;
-  min-width: 200px;
-  max-width: 400px;
-}
-
-.fs-7{
-  font-size: 0.7rem !important;
-}
