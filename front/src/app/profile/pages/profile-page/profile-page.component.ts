@@ -17,4 +17,5 @@ export class ProfilePageComponent {
   ngOnInit(): void {
     this.titleService.setTitle('Perfil');
   }
+  // user : UserData
 }

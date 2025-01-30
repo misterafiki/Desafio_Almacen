@@ -4,3 +4,8 @@
   background-size: cover;
   background-position: center;
 }
+.profile-card{
+  min-height: 450px;
+  max-width: 1000px;
+}
+
