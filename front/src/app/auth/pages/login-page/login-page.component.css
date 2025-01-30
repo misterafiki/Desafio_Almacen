@@ -10,12 +10,10 @@
   max-width: 400px;
 }
 
-.btn-with-icon {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
 .fs-7{
   font-size: 0.7rem !important;
+}
+.bg-color{
+  background-color:rgb(255, 255, 255,0.5);
+  backdrop-filter: blur(2px);
 }

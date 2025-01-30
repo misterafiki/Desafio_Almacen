@@ -47,6 +47,7 @@ export class LoginPageComponent {
               }
             },
             err => {
+              console.log(err)
               this.loginForm.reset()
               this.loginError = err.error.msg
             });
