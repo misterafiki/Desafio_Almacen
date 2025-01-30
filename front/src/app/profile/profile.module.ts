@@ -5,12 +5,14 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
 
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { ProfileImgComponent } from './components/profile-img/profile-img.component';
 
 
 
 @NgModule({
   declarations: [
-    ProfilePageComponent
+    ProfilePageComponent,
+    ProfileImgComponent,
   ],
   imports: [
     CommonModule,
@@ -18,4 +20,6 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
     MaterialModule
   ]
 })
-export class ProfileModule { }
+export class ProfileModule {
+
+}
