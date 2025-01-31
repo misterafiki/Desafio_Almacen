@@ -24,16 +24,16 @@ const uploadFile = async(req, res = response) => {
         let img = public_id.split('/').pop();
         console.log(img);
 
-        const user = await conx.changeImg(req.idToken, img);
+        const result = await conx.changeImg(req.user, img);
 
-        if (!user) {
+        if (!result) {
             return res.status(404).json({ 
-                msg: "Usuario no encontrado o no se pudo actualizar la imagen" 
+                msg: "no se pudo actualizar la imagen" 
             });
         }
 
         console.log("secure url:", secure_url, '       public-id: ', public_id);
-        res.json({ secure_url, user });
+        res.json({ secure_url});
 
     } catch (error) {
         console.error(error);

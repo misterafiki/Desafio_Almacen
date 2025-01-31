@@ -5,6 +5,7 @@ import { generateJWT_Roles } from '../helpers/generate_jwt.js';
 import { handleError } from '../helpers/handleResponse.js';
 
 import { ConexionUsers } from '../databases/conexion_user.js';
+import User from '../models/user.js';
 
 const conx = new ConexionUsers();
 
@@ -30,6 +31,20 @@ const auth_controller = {
                 msg: 'Te has logeado correctamente',
                 token: token,
                 roles:user.dataValues.User_roles.map(userRole => userRole.Rol.name),
+                status: true
+            });
+            
+        } catch (err) {
+            handleError(err,res)
+        }
+    },
+    getUserData : async (req, res = response) => {
+        const user = req.user.dataValues
+        const userData = new User(user).getUserInfo()
+        try {      
+            res.status(200).json({
+                msg: 'estos son tus datos',
+                data: userData,
                 status: true
             });
             
