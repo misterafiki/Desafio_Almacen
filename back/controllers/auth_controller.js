@@ -2,7 +2,7 @@ import {response,request, query} from 'express';
 import bcrypt from 'bcrypt';
 
 import { generateJWT_Roles } from '../helpers/generate_jwt.js';
-import { handleError } from '../helpers/handleResponse.js';
+import { handleError,handleSuccess } from '../helpers/handleResponse.js';
 
 import { ConexionUsers } from '../databases/conexion_user.js';
 import User from '../models/user.js';
@@ -47,6 +47,27 @@ const auth_controller = {
                 data: userData,
                 status: true
             });
+            
+        } catch (err) {
+            handleError(err,res)
+        }
+    },
+    updateUserPassword : async(req, res = response) => {
+        let user = req.user
+        console.log(req.body)
+        let{currentPassword,newPassword,confirmPassword} = req.body
+        const isMatch = await bcrypt.compare(currentPassword, user.dataValues.password);
+        if (!isMatch) {
+            return res.status(404).json({
+                'msg': 'la contraseña no es correcta',
+                status: false
+            });
+        }
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        let password = {password: hashedPassword}
+        try {
+            await conx.updateUser(user,password)    
+            handleSuccess(res, 202, 'contraseña actualizada');
             
         } catch (err) {
             handleError(err,res)

@@ -44,7 +44,6 @@ export class ProfilePageComponent {
       err => {
         console.log(err)
       });
-      console.log(this.userData)
   }
   changePassword(){
     const dialogPassword = this.dialog.open(
@@ -54,13 +53,26 @@ export class ProfilePageComponent {
       }
     )
 
-    dialogPassword.afterClosed().subscribe(
-      (result) => {
-        if(result) {
-
-        }
+    dialogPassword.afterClosed().pipe(
+      filter(result => !!result),
+      switchMap(formValue =>
+        this.profileService.updateUserPassword(formValue.value)
+      )
+    ).subscribe(
+      () => {
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: { message: 'Contraseña actualizada correctamente', status: 'true' },
+          duration: 3000
+        });
+      },
+      err => {
+        console.log(err)
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: { message: err.error.msg||'Ha sucedido un error, inténtelo más tarde', status: 'false' },
+          duration: 3000
+        });
       }
-    )
+    );
   }
   changeImg(){
     const dialogImg = this.dialog.open(

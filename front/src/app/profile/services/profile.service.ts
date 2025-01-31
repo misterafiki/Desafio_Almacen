@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GetUserDataResponse } from '../interfaces/profile.interfaces';
+import { GetUserDataResponse,standardResponse } from '../interfaces/profile.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,10 @@ export class ProfileService {
   }
   getUserData(): Observable<GetUserDataResponse> {
     const serviceUrl: string = 'http://localhost:9090/api/auth/getInfo';
-    return this.http.get<any>(serviceUrl, { params: this.params });
+    return this.http.get<GetUserDataResponse>(serviceUrl, { params: this.params });
+  }
+  updateUserPassword(data: JSON): Observable<standardResponse> {
+    const serviceUrl: string = 'http://localhost:9090/api/auth/updatePassword';
+    return this.http.put<standardResponse>(serviceUrl, data, { params: this.params });
   }
 }
