@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="">Prerfil</a>
+          <a class="nav-link" href="">Perfil</a>
         </li>
 
         <li class="nav-item" *ngIf="hasRole('Administrador')">
@@ -29,7 +29,7 @@
           </a>
           <ul class="dropdown-menu">
             <li *ngFor="let role of user.roles">
-              <a class="dropdown-item" (click)="changeRole(role)">{{ role | titlecase }}</a>
+              <a class="dropdown-item" (click)="changeRole(role)" role="button">{{ role | titlecase }}</a>
             </li>
           </ul>
         </li>

@@ -27,7 +27,6 @@ export class NavBarComponent {
   hasRole(role: string): boolean {
     // return this.user.roles.includes(role);
     return this.selectedRole === role;
-
   }
 
 

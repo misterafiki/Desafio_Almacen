@@ -31,7 +31,6 @@ export class AuthService {
     } else {
       localStorage.removeItem('rolSelected');
     }
-
     this.selectedRoleSubject.next(role);
   }
 
