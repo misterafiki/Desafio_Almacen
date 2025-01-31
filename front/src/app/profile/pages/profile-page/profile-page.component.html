@@ -9,18 +9,21 @@
           <app-role-list></app-role-list>
         </div>
 
-        <div class="col-12 col-md-4  p-4">
+        <div class="col-12 col-md-4 p-4 text-center">
           <mat-card-title>DATOS</mat-card-title>
           <mat-card-content class="pt-3">
             <!-- <p>Nombre: Juan Pérez</p>
             <p>Correo: juan.com</p> -->
           </mat-card-content>
-          <button mat-button>
-            CAMBIAR CONTRASEÑA
-          </button>
+          <div class="d-flex justify-content-center">
+            <button class="btn-with-icon btn btn-primary" (click)="changePassword()">
+              <mat-icon>key</mat-icon>Cambiar contraseña
+            </button>
+          </div>
+
         </div>
 
-        <div class="col-12 col-md-4 p-4">
+        <div class="col-12 col-md-4 p-4 text-center">
           <mat-card-title>ASIGNATURAS</mat-card-title>
           <mat-card-content class="pt-3">
             <!-- <p>Matemáticas, Física</p> -->
