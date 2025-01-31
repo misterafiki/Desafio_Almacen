@@ -11,7 +11,7 @@ const conx = new ConexionUsers();
 const auth_controller = {
     login : async (req, res = response) => {
         const password = req.body.password
-        const user = req.user
+        const user = req.reqUser
         try {
             const isMatch = await bcrypt.compare(password, user.dataValues.password);
             if (!isMatch) {
