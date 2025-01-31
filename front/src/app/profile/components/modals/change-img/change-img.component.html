@@ -6,10 +6,9 @@
 </mat-card-header>
 
 <mat-card-content class="mt-5">
-  <form [formGroup]="changeImgForm" (ngSubmit)="accept()">
 
     <div class="mb-3">
-      <input type="file" (change)="onFileSelected($event)" formControlName="img">
+      <input type="file" (change)="onFileSelected($event)">
       <small class="text-muted d-block mt-1">Formatos soportados: JPG, PNG, GIF</small>
     </div>
 
@@ -17,10 +16,10 @@
       <button
         class="btn-with-icon btn btn-primary"
         type="submit"
-        [disabled]="!changeImgForm.valid">
+        (click)="accept()">
         <mat-icon>image</mat-icon>
         Cambiar Imagen
       </button>
     </div>
-  </form>
+
 </mat-card-content>

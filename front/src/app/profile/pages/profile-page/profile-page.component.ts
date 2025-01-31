@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { ChangePasswordComponent } from '../../components/modals/change-password/change-password.component';
 import { ChangeImgComponent } from '../../components/modals/change-img/change-img.component';
 
 import { Title } from '@angular/platform-browser';
+
+import { ProfileService } from '../../services/profile.service';
+import { GetUserDataResponse, userData} from '../../interfaces/profile.interfaces';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,13 +18,29 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './profile-page.component.css'
 })
 export class ProfilePageComponent {
+
+  userData ?: userData
+  userRoles?: Array<string>
+
   constructor(
     private titleService: Title,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private profileService:ProfileService
   ) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('Perfil');
+
+    this.userRoles = JSON.parse(localStorage.getItem('roles')!);
+
+    this.profileService.getUserData().subscribe(
+      response => {
+        this.userData = response.data
+      },
+      err => {
+        console.log(err)
+      });
+      console.log(this.userData)
   }
   changePassword(){
     const dialogPassword = this.dialog.open(
@@ -33,7 +53,7 @@ export class ProfilePageComponent {
     dialogPassword.afterClosed().subscribe(
       (result) => {
         if(result) {
-          
+
         }
       }
     )
@@ -45,12 +65,18 @@ export class ProfilePageComponent {
         height: '300px',
       }
     )
-    dialogImg.afterClosed().subscribe(
-      (result) => {
-        if(result) {
-
-        }
+    dialogImg.afterClosed().pipe(
+      filter(result => !!result),
+      switchMap(result =>
+        this.profileService.changeImg(result)
+      )
+    ).subscribe(
+      result => {
+        this.userData!!.img = result.secure_url
+      },
+      err => {
+        
       }
-    )
+    );
   }
 }

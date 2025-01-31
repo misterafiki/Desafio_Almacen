@@ -1,10 +1,3 @@
-export interface LoginResponse {
-  msg:    string;
-  token?:  string;
-  roles:  string;
-  status: boolean;
-}
-
 export interface GetUserDataResponse {
   msg:    string;
   data:   userData;

@@ -16,5 +16,5 @@ import { Component,Input } from '@angular/core';
 })
 export class RoleListComponent {
   @Input()
-  roles = [];
+  roles: string[] = [];
 }
