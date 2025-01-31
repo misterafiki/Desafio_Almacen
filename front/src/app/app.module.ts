@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-
+import { provideHttpClient,withInterceptors } from '@angular/common/http';
 
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { ProfileModule } from './profile/profile.module';
   ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([AuthInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

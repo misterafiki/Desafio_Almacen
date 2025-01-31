@@ -35,7 +35,7 @@ export class ChangePasswordComponent {
 
   accept() {
     if (this.changePasswordForm.valid) {
-      this.dialogRef.close();
+      this.dialogRef.close(this.changePasswordForm);
     }
   }
 

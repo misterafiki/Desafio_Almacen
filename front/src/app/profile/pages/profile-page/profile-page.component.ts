@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { ChangePasswordComponent } from '../../components/modals/change-password/change-password.component';
+import { ChangeImgComponent } from '../../components/modals/change-img/change-img.component';
 
 import { Title } from '@angular/platform-browser';
 
@@ -21,10 +23,33 @@ export class ProfilePageComponent {
     this.titleService.setTitle('Perfil');
   }
   changePassword(){
-    const dialog = this.dialog.open(
+    const dialogPassword = this.dialog.open(
       ChangePasswordComponent,{
         width: '500px',
         height: '500px',
+      }
+    )
+
+    dialogPassword.afterClosed().subscribe(
+      (result) => {
+        if(result) {
+          
+        }
+      }
+    )
+  }
+  changeImg(){
+    const dialogImg = this.dialog.open(
+      ChangeImgComponent,{
+        width: '500px',
+        height: '300px',
+      }
+    )
+    dialogImg.afterClosed().subscribe(
+      (result) => {
+        if(result) {
+
+        }
       }
     )
   }
