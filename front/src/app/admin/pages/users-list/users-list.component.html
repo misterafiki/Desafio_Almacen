@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between mb-3">
-    <input type="text" class="form-control w-50" placeholder="Buscar por ID, nombre o email"
+    <input type="text" class="form-control w-50" placeholder="Buscar por ID, nombre, email o rol"
            [(ngModel)]="searchTerm" (input)="search()">
     <button class="btn btn-primary" (click)="openModal()">
       <i class="bi bi-plus-circle"></i> Nuevo Usuario
@@ -12,7 +12,18 @@
                  (submit)="handleFormSubmit()">
   </app-user-form>
 
-  <table class="table table-striped">
+  <div *ngIf="loadError" class="alert alert-danger mt-3">
+    No se han podido obtener los usuarios
+    <button class="btn btn-link p-0 ms-2" (click)="loadUsers()">
+      <i class="bi bi-arrow-clockwise"></i> Reintentar
+    </button>
+  </div>
+
+  <div *ngIf="!loadError && users.length === 0" class="alert alert-info">
+    No se encontraron usuarios
+  </div>
+
+  <table class="table table-striped" *ngIf="!loadError && users.length > 0">
     <thead>
     <tr>
       <th>ID</th>
@@ -29,11 +40,14 @@
       <td>{{ user.email }}</td>
       <td>{{ user.RolesNames ? user.RolesNames : 'Sin rol' }}</td>
       <td>
+        <button class="btn btn-sm btn-info me-2">
+          <i class="bi bi-shield-fill"></i>
+        </button>
         <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)">
-          <i class="bi bi-pencil"></i>
+          <i class="bi bi-pencil-fill"></i>
         </button>
         <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
-          <i class="bi bi-trash"></i>
+          <i class="bi bi-trash-fill"></i>
         </button>
       </td>
     </tr>

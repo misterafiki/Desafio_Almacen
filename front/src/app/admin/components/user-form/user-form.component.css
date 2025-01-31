@@ -1,0 +1,16 @@
+.alert {
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.bi-arrow-clockwise {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
