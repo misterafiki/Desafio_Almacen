@@ -9,6 +9,7 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     AuthModule,
     HomeModule,
-  ],
+    SharedModule
+],
   providers: [
     provideAnimationsAsync(),
     provideHttpClient()
