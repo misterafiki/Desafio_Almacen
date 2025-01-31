@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 
-
+import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -17,7 +17,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
+    HomeModule,
   ],
   providers: [
     provideAnimationsAsync(),
