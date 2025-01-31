@@ -9,3 +9,11 @@
 .bg-color{
   background-color: #6897e5;
 }
+
+.logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+
