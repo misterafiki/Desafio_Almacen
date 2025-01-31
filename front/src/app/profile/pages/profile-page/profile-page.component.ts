@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs/operators';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastComponent } from '../../../shared/toast/toast.component';
+
 import { ChangePasswordComponent } from '../../components/modals/change-password/change-password.component';
 import { ChangeImgComponent } from '../../components/modals/change-img/change-img.component';
 
@@ -25,7 +28,8 @@ export class ProfilePageComponent {
   constructor(
     private titleService: Title,
     private dialog: MatDialog,
-    private profileService:ProfileService
+    private profileService:ProfileService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -73,9 +77,16 @@ export class ProfilePageComponent {
     ).subscribe(
       result => {
         this.userData!!.img = result.secure_url
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: { message: 'Imagen actualizada correctamente', status: 'true' },
+          duration: 3000
+        });
       },
       err => {
-        
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: { message: 'ha sucedido un error intente mas tarde', status: 'false' },
+          duration: 3000
+        });
       }
     );
   }
