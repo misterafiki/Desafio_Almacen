@@ -1,44 +1,40 @@
-<!-- <app-nav-bar></app-nav-bar> -->
-<div class="d-flex justify-content-center align-items-center vh-100 custom-bg-image ">
-  <div class="container-fluid p-3 bg-color vh-100 d-flex align-items-center justify-content-center">
-    <mat-card class="profile-card p-5">
+  <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <div class="p-3 d-flex justify-content-center align-items-center">
+      <mat-card class="profile-card p-5">
+        <div class="row">
+          <div class="col-12 col-md-4 d-flex flex-column ">
+            <app-profile-img class="text-center p-5" [imgUrl]="userData?.img" (click)="changeImg()"></app-profile-img>
+            <app-role-list [roles]="userRoles?? []"></app-role-list>
+          </div>
 
-      <div class="row">
-        <div class="col-12 col-md-4 d-flex flex-column ">
-          <app-profile-img class="text-center p-5" [imgUrl]="userData?.img" (click)="changeImg()"></app-profile-img>
-          <app-role-list [roles]="userRoles?? []"></app-role-list>
+          <div class="col-12 col-md-4 p-4 text-center">
+            <mat-card-title>DATOS</mat-card-title>
+
+            <div class="mb-3">
+                <div class="text-muted small">Nombre</div>
+                <div class="fw-medium">{{userData?.name}}</div>
+              </div>
+
+              <div class="mb-4">
+                <div class="text-muted small">Correo electrónico</div>
+                <div class="fw-medium">{{userData?.email}}</div>
+              </div>
+
+              <div class="mt-auto text-center">
+                <button class="btn-with-icon btn btn-primary" (click)="changePassword()">
+                  <mat-icon>key</mat-icon>Cambiar contraseña
+                </button>
+              </div>
+          </div>
+
+          <div class="col-12 col-md-4 p-4 text-center">
+            <mat-card-title>ASIGNATURAS</mat-card-title>
+            <mat-card-content class="pt-3">
+              <!-- <p>Matemáticas, Física</p> -->
+            </mat-card-content>
+          </div>
+
         </div>
-
-        <div class="col-12 col-md-4 p-4 text-center">
-          <mat-card-title>DATOS</mat-card-title>
-
-          <div class="mb-3">
-              <div class="text-muted small">Nombre</div>
-              <div class="fw-medium">{{userData?.name}}</div>
-            </div>
-
-            <div class="mb-4">
-              <div class="text-muted small">Correo electrónico</div>
-              <div class="fw-medium">{{userData?.email}}</div>
-            </div>
-
-            <div class="mt-auto text-center">
-              <button class="btn-with-icon btn btn-primary" (click)="changePassword()">
-                <mat-icon>key</mat-icon>Cambiar contraseña
-              </button>
-            </div>
-        </div>
-
-        <div class="col-12 col-md-4 p-4 text-center">
-          <mat-card-title>ASIGNATURAS</mat-card-title>
-          <mat-card-content class="pt-3">
-            <!-- <p>Matemáticas, Física</p> -->
-          </mat-card-content>
-        </div>
-
-      </div>
-    </mat-card>
+      </mat-card>
+    </div>
   </div>
-</div>
-
-<!-- <app-footer></app-footer> -->
