@@ -20,18 +20,9 @@ Subject.init({
     primaryKey: true,
     autoIncrement: true
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true
-  },
+ 
   name: DataTypes.STRING,
-  password: DataTypes.STRING,
-  img:{
-    type: DataTypes.STRING,
-    defaultValue:null,
-    allowNull: true
-  },
+ 
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
