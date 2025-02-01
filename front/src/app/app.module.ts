@@ -26,7 +26,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     AuthModule,
     ProfileModule,
     HomeModule,
-    SharedModule
+    SharedModule,
     AdminModule,
   ],
   providers: [

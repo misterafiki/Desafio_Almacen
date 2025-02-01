@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ToastComponent } from '../../../shared/toast/toast.component';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 import { ChangePasswordComponent } from '../../components/modals/change-password/change-password.component';
 import { ChangeImgComponent } from '../../components/modals/change-img/change-img.component';
