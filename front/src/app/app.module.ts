@@ -5,11 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
 
+import { provideHttpClient,withInterceptors } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from "./shared/shared.module";
+
+import {AdminModule} from './admin/admin.module';
+import { ProfileModule } from './profile/profile.module';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -19,12 +24,14 @@ import { SharedModule } from "./shared/shared.module";
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    ProfileModule,
     HomeModule,
     SharedModule
-],
+    AdminModule,
+  ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([AuthInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

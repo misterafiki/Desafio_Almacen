@@ -1,0 +1,16 @@
+.mat-dialog-container {
+  padding: 24px !important;
+  border-radius: 8px !important;
+}
+
+.warning-title {
+  color: #d32f2f;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.warning-icon {
+  color: #d32f2f;
+  transform: scale(1.2);
+}

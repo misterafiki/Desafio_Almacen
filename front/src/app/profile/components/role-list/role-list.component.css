@@ -1,0 +1,6 @@
+.blue-chip {
+  --mdc-chip-elevated-container-color: #6897e5 !important;
+}
+.blue-chip.blue-chip {
+  --mdc-chip-label-text-color: white;
+}

@@ -3,15 +3,14 @@ import { Sequelize, DataTypes, Model } from 'sequelize';
 import db from '../databases/connection.js';
 
 class User extends Model {
-  /**
-   * Helper method for defining associations.
-   * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
-   */
-  static associate(models) {
-    // define association here
-    
+  getUserInfo() {
+    return {
+      email: this.email,
+      name: this.name,
+      img: "https://res.cloudinary.com/du572yhof/image/upload/v1738353776/imgs/"+this.img || null 
+    };
   }
+
 }
 
 User.init({

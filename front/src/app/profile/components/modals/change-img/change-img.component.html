@@ -1,0 +1,25 @@
+<mat-card-header class="d-flex justify-content-between align-items-center">
+  <mat-card-title class="text-uppercase">Cambiar Imagen</mat-card-title>
+  <button mat-icon-button type="button" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-card-header>
+
+<mat-card-content class="mt-5">
+
+    <div class="mb-3">
+      <input type="file" (change)="onFileSelected($event)">
+      <small class="text-muted d-block mt-1">Formatos soportados: JPG, PNG, GIF</small>
+    </div>
+
+    <div class="d-flex justify-content-center pt-5">
+      <button
+        class="btn-with-icon btn btn-primary"
+        type="submit"
+        (click)="accept()">
+        <mat-icon>image</mat-icon>
+        Cambiar Imagen
+      </button>
+    </div>
+
+</mat-card-content>
