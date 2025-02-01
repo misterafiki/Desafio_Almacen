@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { RecoverPasswordComponent } from '../../components/modals/recover-password/recover-password.component';
-import { ToastComponent } from '../../../shared/toast/toast.component';
+import { ToastComponent } from '../../../shared/component/toast/toast.component';
 
 @Component({
   selector: 'app-login-page',
