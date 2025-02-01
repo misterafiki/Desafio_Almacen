@@ -2,7 +2,8 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import  {   fileURLToPath } from 'url'
+import { fileURLToPath } from 'url';
+
 
 dotenv.config()
 

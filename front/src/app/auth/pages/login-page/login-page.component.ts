@@ -1,10 +1,15 @@
 import { Component  } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
+import { RecoverPasswordComponent } from '../../components/modals/recover-password/recover-password.component';
+import { ToastComponent } from '../../../shared/component/toast/toast.component';
 
 @Component({
   selector: 'app-login-page',
@@ -25,9 +30,11 @@ export class LoginPageComponent {
 
   constructor(
     private fb: FormBuilder,
+    private dialog: MatDialog,
     private authService: AuthService,
     private titleService: Title,
-    private router:Router
+    private router:Router,
+    private snackBar: MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -53,6 +60,31 @@ export class LoginPageComponent {
             });
   }
   recoverPassword():void{
-    console.log("funciona")
+    const dialogRecoverPassword = this.dialog.open(
+          RecoverPasswordComponent,{
+            width: '500px',
+            height: '300px',
+          }
+        )
+        dialogRecoverPassword.afterClosed().pipe(
+          filter(result => !!result),
+          switchMap(formValue =>
+            this.authService.recoverPassword(formValue.value)
+          )
+        ).subscribe(
+          () => {
+            this.snackBar.openFromComponent(ToastComponent, {
+              data: { message: 'Revise su correo', status: 'true' },
+              duration: 3000
+            });
+          },
+          err => {
+            console.log(err)
+            this.snackBar.openFromComponent(ToastComponent, {
+              data: { message: err.error.msg||'Ha sucedido un error, inténtelo más tarde', status: 'false' },
+              duration: 3000
+            });
+          }
+        );
   }
 }

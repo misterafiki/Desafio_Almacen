@@ -23,6 +23,12 @@ export class AuthService {
     return this.http.post<LoginResponse>( `${this.serviceUrl}/login`,data)
 
   }
+  recoverPassword(data: { email: string }): Observable<LoginResponse> {
+    const encodedEmail = encodeURIComponent(data.email);
+    return this.http.get<LoginResponse>(`http://localhost:9090/api/user/forgot/${encodedEmail}`);
+  }
+  
+
 
    // Guarda el rol seleccionado en `localStorage` y actualiza el observable
    setSelectedRole(role: string | null): void {
