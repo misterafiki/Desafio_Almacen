@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {Role, UserInterface} from '../../interfaces/user.interface';
 import {UserService} from '../../services/user/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { NgForm } from '@angular/forms';
+import {ToastComponent} from '../../../shared/toast/toast.component';
 
 @Component({
   selector: 'app-user-form',
@@ -17,7 +20,10 @@ export class UserFormComponent implements OnChanges{
   rolesList: Role['name'][] = ['administrador', 'direccion', 'jefeDepartamento', 'profesor'];
   formData: Partial<UserInterface & { role?: string }> = {};
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['user'] && this.user) {
@@ -29,7 +35,18 @@ export class UserFormComponent implements OnChanges{
     }
   }
 
-  onSubmit(): void {
+  onSubmit(form: NgForm): void {
+    if (form.invalid) {
+      this.snackBar.openFromComponent(ToastComponent, {
+        data: {
+          status: 'error',
+          message: 'Por favor, completa todos los campos correctamente.'
+        },
+        duration: 3000
+      });
+      return;
+    }
+
     const operation = this.user
       ? this.userService.updateUser(this.user.id!, this.formData)
       : this.userService.createUser(this.formData);
@@ -39,7 +56,16 @@ export class UserFormComponent implements OnChanges{
         console.log('Usuario guardado:', response);
         this.submit.emit();
       },
-      error: (err) => console.error('Error al guardar usuario:', err),
+      error: (err) => {
+        console.error('Error al guardar usuario:', err);
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: {
+            status: 'error',
+            message: 'Error al guardar usuario. Inténtalo de nuevo.'
+          },
+          duration: 3000
+        });
+      },
     });
   }
 }
