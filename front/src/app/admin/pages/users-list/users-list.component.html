@@ -1,0 +1,75 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between mb-3">
+    <input type="text" class="form-control w-50" placeholder="Buscar por ID, nombre, email o rol"
+           [(ngModel)]="searchTerm" (input)="search()">
+    <button class="btn btn-primary" (click)="openModal()">
+      <i class="bi bi-plus-circle"></i> Nuevo Usuario
+    </button>
+  </div>
+
+  <app-user-form *ngIf="showForm"
+                 [user]="selectedUser"
+                 (submit)="handleFormSubmit()">
+  </app-user-form>
+
+  <div *ngIf="loadError" class="alert alert-danger mt-3">
+    No se han podido obtener los usuarios
+    <button class="btn btn-link p-0 ms-2" (click)="loadUsers()">
+      <i class="bi bi-arrow-clockwise"></i> Reintentar
+    </button>
+  </div>
+
+  <div *ngIf="!loadError && users.length === 0" class="alert alert-info">
+    No se encontraron usuarios
+  </div>
+
+  <table class="table table-striped" *ngIf="!loadError && users.length > 0">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.RolesNames ? user.RolesNames : 'Sin rol' }}</td>
+      <td>
+        <button class="btn btn-sm btn-info me-2">
+          <i class="bi bi-shield-fill"></i>
+        </button>
+        <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)">
+          <i class="bi bi-pencil-fill"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ selectedUser ? 'Editar Usuario' : 'Nuevo Usuario' }}</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-user-form
+          [user]="selectedUser"
+          (submit)="onUserFormSubmit()"
+          (cancel)="closeModal()">
+        </app-user-form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop fade show" *ngIf="showModal"></div>

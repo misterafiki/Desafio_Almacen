@@ -87,19 +87,33 @@ class ConexionUsers {
     }
 };
 
-  getUsers = async () => {
-    try {
-      let result = await User.findAll();
-  
-      if (!result) {
-        throw new Error('Usuario no encontrado');
-      }
-  
-      return result;
-    } catch (err) {
-      throw err;
-    }
-  }
+    getUsers = async () => {
+        try {
+            let result = await User.findAll({
+                include: [
+                    {
+                        model: User_role,
+                        as: 'User_roles',
+                        include: [
+                            {
+                                model: Roles,
+                                as: 'Rol',
+                                attributes: ['id', 'name']
+                            },
+                        ],
+                    },
+                ],
+            });
+
+            if (!result || result.length === 0) {
+                throw new Error('Usuarios no encontrados');
+            }
+
+            return result;
+        } catch (err) {
+            throw err;
+        }
+    };
 
   getUserById = async (id) => {
     try {
