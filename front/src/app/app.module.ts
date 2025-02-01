@@ -9,6 +9,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient,withInterceptors } from '@angular/common/http';
 import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from "./shared/shared.module";
+
 import {AdminModule} from './admin/admin.module';
 import { ProfileModule } from './profile/profile.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
@@ -24,6 +26,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     AuthModule,
     ProfileModule,
     HomeModule,
+    SharedModule
     AdminModule,
   ],
   providers: [
