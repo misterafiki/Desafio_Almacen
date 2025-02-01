@@ -9,6 +9,7 @@ import {CardComponent}from './components/card/card.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { SelectRolPageComponent } from './pages/selectRol-page/selectRol-page.component';
 import { SharedModule } from "../shared/shared.module";
+import { RecoverPasswordComponent } from './components/modals/recover-password/recover-password.component';
 
 
 
@@ -18,6 +19,7 @@ import { SharedModule } from "../shared/shared.module";
     CardComponent,
     CardListComponent,
     SelectRolPageComponent,
+    RecoverPasswordComponent,
   ],
   imports: [
     CommonModule,
