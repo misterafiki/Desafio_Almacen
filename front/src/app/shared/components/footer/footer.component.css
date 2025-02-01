@@ -1,0 +1,23 @@
+.footer {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+a {
+  color: white;
+  margin: 0 5px;
+  text-decoration: none;
+
+  &:hover {
+    color: #ccc;
+  }
+}
+.bg-color{
+    background-color: #232d47;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+}

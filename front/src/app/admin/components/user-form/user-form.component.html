@@ -1,0 +1,58 @@
+<form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input type="text"
+           class="form-control"
+           [(ngModel)]="formData.name"
+           name="name"
+           required
+           #nameField="ngModel">
+    <div *ngIf="(userForm.submitted || nameField.touched) && nameField.errors?.['required']" class="text-danger">
+      El nombre es obligatorio.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Email</label>
+    <input type="email"
+           class="form-control"
+           [(ngModel)]="formData.email"
+           name="email"
+           required
+           email
+           #emailField="ngModel">
+    <div *ngIf="(userForm.submitted || emailField.touched) && emailField.errors">
+      <div *ngIf="emailField.errors['required']" class="text-danger">
+        El email es obligatorio.
+      </div>
+      <div *ngIf="emailField.errors['email']" class="text-danger">
+        Introduce un email válido.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="!user">
+    <label class="form-label">Rol</label>
+    <select class="form-select"
+            [(ngModel)]="formData.role"
+            name="role"
+            required
+            #roleField="ngModel">
+      <option value="" disabled selected>Seleccione un rol</option>
+      <option *ngFor="let role of rolesList" [value]="role">{{ role }}</option>
+    </select>
+    <div *ngIf="(userForm.submitted || roleField.touched) && roleField.errors?.['required']" class="text-danger">
+      El rol es obligatorio.
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" class="btn btn-secondary" (click)="cancel.emit()">
+      Cancelar
+    </button>
+    <button type="submit" class="btn btn-primary">
+      {{ user ? 'Actualizar' : 'Crear' }}
+    </button>
+  </div>
+</form>

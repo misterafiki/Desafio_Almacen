@@ -1,0 +1,11 @@
+.custom-bg-image {
+  background-image: url("/fondo_login.svg");
+  background-color: #f5f5f5;
+  background-size: cover;
+  background-position: center;
+}
+.profile-card{
+  min-height: 450px;
+  max-width: 1000px;
+}
+
