@@ -5,6 +5,14 @@ import { handleError } from '../helpers/handleErrors.js';
 const conx = new Conexion();
 
 const grups_controller = {
+     getGrups: async (req, res) => {
+        try {
+            const grups = await Grup.findAll(); // Suponiendo que estás usando Sequelize
+            res.json(grups);
+        } catch (error) {
+            res.status(500).json({ message: 'Error al obtener los grupos', error });
+        }
+    },
     addTutorToGrup: async (req = request, res = response) => {
         try {
             const { grupId, userId } = req.body;

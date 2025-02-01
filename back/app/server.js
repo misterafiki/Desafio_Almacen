@@ -10,6 +10,8 @@ import {router as userRoutes} from '../routes/userRoutes.js';
 // import {router as rolesAsignadosRoutes} from '../routes/roles_asignados_routes.js';
 // import {router as photoRoutes} from '../routes/photo-routes.js';
 import {router as authRouters} from '../routes/authRoutes.js'
+import { router as grupRoutes } from '../routes/grupsRoutes.js'; 
+import { router as subjectRoutes } from '../routes/subjectsRoutes.js'; 
 
 //https://sequelize.org/docs/v6/getting-started/
 
@@ -22,6 +24,8 @@ class Server {
         this.rolesPath = '/api/roles';
         this.rolesAsignados = '/api/assignedRoles';
         this.photoPath  = '/api/img';
+        this.grupPath = '/api/grup';
+        this.subjectPath = '/api/subject';
 
       
 
@@ -62,6 +66,8 @@ class Server {
     routes(){
         this.app.use(this.userPath , userRoutes);
         this.app.use(this.authPath , authRouters);
+        this.app.use(this.grupPath , grupRoutes);
+        this.app.use(this.grupPath , subjectRoutes);
         // this.app.use(this.rolesPath , rolRoutes);
         // this.app.use(this.rolesAsignados, rolesAsignadosRoutes);
         // this.app.use(this.photoPath, photoRoutes);
