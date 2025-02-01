@@ -23,3 +23,6 @@ CLOUDINARY_CLOUD_NAME=du572yhof
 CLOUDINARY_URL=cloudinary://565813251114439:rIXRPtGaVHruvw6QxO9coKlvlKM@du572yhof
 
 CLOUDINARY_FILES='imgs/'
+
+MAIL_USER=virgendegraciadaw@gmail.com
+MAIL_PASSWORD=dued rsut jfkc erbd

@@ -3,7 +3,7 @@ import {Role, UserInterface} from '../../interfaces/user.interface';
 import {UserService} from '../../services/user/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { NgForm } from '@angular/forms';
-import {ToastComponent} from '../../../shared/toast/toast.component';
+import {ToastComponent} from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'app-user-form',
@@ -39,7 +39,7 @@ export class UserFormComponent implements OnChanges{
     if (form.invalid) {
       this.snackBar.openFromComponent(ToastComponent, {
         data: {
-          status: 'error',
+          status: 'false',
           message: 'Por favor, completa todos los campos correctamente.'
         },
         duration: 3000
@@ -60,7 +60,7 @@ export class UserFormComponent implements OnChanges{
         console.error('Error al guardar usuario:', err);
         this.snackBar.openFromComponent(ToastComponent, {
           data: {
-            status: 'error',
+            status: 'false',
             message: 'Error al guardar usuario. Inténtalo de nuevo.'
           },
           duration: 3000

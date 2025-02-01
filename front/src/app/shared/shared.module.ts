@@ -5,7 +5,7 @@ import { LazyImageComponent } from './components/lazy-image/lazy-image.component
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialModule } from '../material/material.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { ToastComponent } from './toast/toast.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 
 
