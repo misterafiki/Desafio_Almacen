@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient,withInterceptors } from '@angular/common/http';
 
+import { provideHttpClient,withInterceptors } from '@angular/common/http';
+import { HomeModule } from './home/home.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfileModule } from './profile/profile.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
@@ -21,7 +22,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    ProfileModule
+    ProfileModule,
+    HomeModule,
   ],
   providers: [
     provideAnimationsAsync(),

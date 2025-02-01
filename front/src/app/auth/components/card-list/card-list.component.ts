@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit ,Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -9,10 +9,13 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class CardListComponent {
   @Input() roles: string[] = [];
+  @Output() selcetrole = new EventEmitter<string>();
   constructor( private router: Router){}
+
   onRoleSelected(role: string): void {
-    localStorage.setItem('rolSelected', role);
-    console.log('Rol seleccionado:', role);
-    this.router.navigate(['/login']);
+    this.selcetrole.emit(role);
+    // localStorage.setItem('rolSelected', role);
+    // console.log('Rol seleccionado:', role);
+    // this.router.navigate(['/home']);
   }
 }

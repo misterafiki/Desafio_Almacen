@@ -8,6 +8,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import {CardComponent}from './components/card/card.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 import { SelectRolPageComponent } from './pages/selectRol-page/selectRol-page.component';
+import { SharedModule } from "../shared/shared.module";
 
 
 
