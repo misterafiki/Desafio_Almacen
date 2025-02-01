@@ -5,13 +5,13 @@ DB_HOST="localhost"
 DB_USER="rafa" 
 DB_PASSWORD="Chubaca2024"
 
-DB_USERS="inv_users"
+DB_DEV="inv_users"
 DB_PROYECT="inv_proyects"
 DB_PROD="inv_prod"
 DB_TEST="inv_test"
 
 DB_DIALECT="mysql"
-DB_HOST="localhost"
+HOST="localhost"
 DB_PORT=3306
 DB_MAXCONNECTIONS=5
 

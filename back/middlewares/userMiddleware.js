@@ -74,15 +74,15 @@ if (newPassword != confirmPassword) {
     });
 }
 
-if (typeof role !== 'string' || role.trim().length < 3 || role.trim().length > 255) {
-    return res.status(400).json({ msg: 'El rol es requerido y debe ser un texto entre 3 y 255 caracteres.' });
-}
+// if (typeof role !== 'string' || role.trim().length < 3 || role.trim().length > 255) {
+//     return res.status(400).json({ msg: 'El rol es requerido y debe ser un texto entre 3 y 255 caracteres.' });
+// }
 
-const validRoles = ["profesor", "administrador", "direccion", "jefedepartamento"];
+// const validRoles = ["profesor", "administrador", "direccion", "jefedepartamento"];
 
-if (!validRoles.includes(role.trim().toLowerCase())) {
-    return res.status(400).json({ msg: 'El rol seleccionado es invalido.' });
-}
+// if (!validRoles.includes(role.trim().toLowerCase())) {
+//     return res.status(400).json({ msg: 'El rol seleccionado es invalido.' });
+// }
 
 next();
 

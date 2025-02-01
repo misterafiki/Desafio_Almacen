@@ -7,7 +7,7 @@ class User extends Model {
     return {
       email: this.email,
       name: this.name,
-      img: "https://res.cloudinary.com/du572yhof/image/upload/v1738353776/imgs/"+this.img || null 
+      img: this.img ? `https://res.cloudinary.com/du572yhof/image/upload/v1738353776/imgs/${this.img}` : null
     };
   }
 
