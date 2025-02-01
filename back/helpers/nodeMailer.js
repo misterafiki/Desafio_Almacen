@@ -2,6 +2,8 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config()
 
 let transporter = nodemailer.createTransport({
@@ -12,7 +14,7 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-const __filename = decodeURIComponent(new URL(import.meta.url).pathname);
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
