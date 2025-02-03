@@ -64,6 +64,9 @@ class Server {
 
 
     routes(){
+        this.app.get('/', (req, res) => {
+            res.send('API funcionando correctamente 🚀');
+        });
         this.app.use(this.userPath , userRoutes);
         this.app.use(this.authPath , authRouters);
         this.app.use(this.grupPath , grupRoutes);
