@@ -1,9 +1,9 @@
-  <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
-    <div class="p-3 d-flex justify-content-center align-items-center">
-      <mat-card class="profile-card p-5">
+<div class="custom-bg-image">
+  <div class="d-flex justify-content-center align-items-center position-relative" style="height: 100%;">
+    <mat-card class="profile-card p-5 w-100" style="max-width: 1000px;">
         <div class="row">
           <div class="col-12 col-md-4 d-flex flex-column ">
-            <app-profile-img class="text-center p-5" [imgUrl]="userData?.img" (click)="changeImg()"></app-profile-img>
+            <app-profile-img class="text-center p-5 img-fluid" [imgUrl]="userData?.img" (click)="changeImg()"></app-profile-img>
             <app-role-list [roles]="userRoles?? []"></app-role-list>
           </div>
 

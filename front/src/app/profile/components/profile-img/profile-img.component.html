@@ -1,14 +1,13 @@
-<div class="img-container">
-  <img
-    [src]="imgUrl || defaultImg"
-    alt="Perfil"
-    class="rounded-circle img-profile"
-  >
-
-  <div class="hover-overlay">
-    <div class="hover-content">
-      <i class="material-icons text-white">photo_camera</i>
-      <span class="text-white mt-2">Cambiar foto</span>
+<div class="d-flex position-relative align-items-center justify-content-center">
+  <div class="circle-container">
+    <div class="img-container img-profile">
+      <img [src]="imgUrl || defaultImg" alt="Perfil">
+      <div class="hover-overlay">
+        <div class="hover-content">
+          <i class="material-icons text-white">photo_camera</i>
+          <span class="text-white mt-2">Cambiar foto</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
