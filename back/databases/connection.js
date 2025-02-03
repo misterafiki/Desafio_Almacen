@@ -6,7 +6,7 @@ let db;
 
 if (!db) {
     console.log('Conexión establecida correctamente.');
-    db = new Sequelize(process.env.DB_USERS, process.env.DB_USER, process.env.DB_PASSWORD, {
+    db = new Sequelize(process.env.DB_DEV, process.env.DB_USER, process.env.DB_PASSWORD, {
         host: process.env.DB_HOST,
         dialect: 'mysql', /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */
         pool: {

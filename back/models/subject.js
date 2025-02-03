@@ -40,7 +40,7 @@ Subject.init({
 }, {
   sequelize: db,
   modelName: 'Subject',
-  tableName: 'subjects',
+  tableName: 'subject',
   timestamps: true,
   paranoid: true
 });

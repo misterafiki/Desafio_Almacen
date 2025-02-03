@@ -10,14 +10,26 @@ router.get('/grups',
    // [validateJWT, esProfe],
      grups_controller.getGrups);
 
-router.post('/grups/tutor', [validateJWT, esProfe], grups_controller.addTutorToGrup);
+router.post('/grups/tutor',
+  // [validateJWT, esProfe], 
+   grups_controller.addTutorToGrup);
 
-router.put('/grups/tutor', [validateJWT, esProfe], grups_controller.updateTutorToGrup);
+router.put('/grups/tutor',
+//   [validateJWT, esProfe], 
+   grups_controller.updateTutorToGrup);
 
-router.delete('/grups/tutor/:grupId', [ validateJWT, esProfe], grups_controller.deleteTutorToGrup);
+router.delete('/grups/tutor/:grupId',
+//[ validateJWT, esProfe], 
+   grups_controller.deleteTutorToGrup);
 
-router.post('/grups', [validateJWT, esProfe], grups_controller.addGrup);
+router.post('/grups', 
+ // [validateJWT, esProfe],
+   grups_controller.addGrup);
 
-router.put('/grups/:grupId', [ validateJWT, esProfe], grups_controller.updateGrup);
+router.put('/grups/:grupId',
+ //  [ validateJWT, esProfe], 
+   grups_controller.updateGrup);
 
-router.delete('/grups/:grupId', [ validateJWT, esProfe], grups_controller.deleteGrup);
+router.delete('/grups/:grupId',
+  // [ validateJWT, esProfe], 
+   grups_controller.deleteGrup);

@@ -142,6 +142,35 @@ class ConexionSubject {
       return { code: 500, message: 'Error del servidor', error: err.message };
     }
   };
+
+  getSubjects = async () => {
+    try {
+      const subjects = await Subject.findAll();
+
+      if (!subjects.length) {
+        return { code: 404, message: 'No se encontraron asignaturas' };
+      }
+
+      return { code: 200, message: 'Asignaturas obtenidas correctamente', subjects };
+    } catch (err) {
+      return { code: 500, message: 'Error del servidor', error: err.message };
+    }
+  };
+  
+  getSubjectById = async (subjectId) => {
+    try {
+      const subject = await Subject.findByPk(subjectId);
+
+      if (!subject) {
+        return { code: 404, message: 'Asignatura no encontrada' };
+      }
+
+      return { code: 200, message: 'Asignatura obtenida correctamente', subject };
+    } catch (err) {
+      return { code: 500, message: 'Error del servidor', error: err.message };
+    }
+  };
+
 }
 
 export { ConexionSubject };

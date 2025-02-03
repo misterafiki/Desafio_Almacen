@@ -88,7 +88,7 @@ const subjects_controller = {
     updateProfessorInSubject: async (req, res = response) => {
         try {
             const { subjectId, newUserId } = req.body;
-            const result = await conx.updateProfessorInSubject(subjectId, newUserId);
+            const result = await conx.updateProfessorToSubject(subjectId, newUserId);
 
             if (result.error) {
                 return res.status(result.error).json({ message: result.message });
@@ -103,7 +103,7 @@ const subjects_controller = {
     deleteProfessorFromSubject: async (req, res = response) => {
         try {
             const { subjectId } = req.params;
-            const result = await conx.deleteProfessorFromSubject(subjectId);
+            const result = await conx.deleteProfessorToSubject(subjectId);
 
             if (result.error) {
                 return res.status(result.error).json({ message: result.message });
