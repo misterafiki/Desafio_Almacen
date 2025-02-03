@@ -8,7 +8,7 @@ const conx = new Conexion();
 const grups_controller = {
      getGrups: async (req, res) => {
         try {
-            const grups = await Grup.findAll();
+            const grups = await Grups.findAll();
             res.json(grups);
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener los grupos', error });

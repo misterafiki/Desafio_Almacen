@@ -6,7 +6,9 @@ import { esProfe } from '../middlewares/validateRoles.js';
 
 export const router = Router();
 
-router.get('/grups', [validateJWT, esProfe], grups_controller.getGrups);
+router.get('/grups', 
+   // [validateJWT, esProfe],
+     grups_controller.getGrups);
 
 router.post('/grups/tutor', [validateJWT, esProfe], grups_controller.addTutorToGrup);
 
