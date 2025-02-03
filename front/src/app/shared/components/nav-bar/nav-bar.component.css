@@ -1,0 +1,19 @@
+.navbar {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+  min-width: 150px;
+}
+
+.bg-color{
+  background-color: #6897e5;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+

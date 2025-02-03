@@ -1,0 +1,13 @@
+.toast{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  color: white;
+}
+.true{
+  background: #4CAF50 !important;
+}
+.false{
+  background: #af4c4c !important;
+}
