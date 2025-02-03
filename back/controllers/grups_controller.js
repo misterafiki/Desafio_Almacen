@@ -1,13 +1,14 @@
 import { response, request } from 'express';
 import { ConexionGrup as Conexion } from '../databases/conexion_grup.js';
 import { handleError } from '../helpers/handleErrors.js';
+import { Grups } from '../models/associations.js'; 
 
 const conx = new Conexion();
 
 const grups_controller = {
      getGrups: async (req, res) => {
         try {
-            const grups = await Grup.findAll(); // Suponiendo que estás usando Sequelize
+            const grups = await Grup.findAll();
             res.json(grups);
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener los grupos', error });

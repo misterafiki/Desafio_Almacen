@@ -67,7 +67,7 @@ class Server {
         this.app.use(this.userPath , userRoutes);
         this.app.use(this.authPath , authRouters);
         this.app.use(this.grupPath , grupRoutes);
-        this.app.use(this.grupPath , subjectRoutes);
+        this.app.use(this.subjectPath , subjectRoutes);
         // this.app.use(this.rolesPath , rolRoutes);
         // this.app.use(this.rolesAsignados, rolesAsignadosRoutes);
         // this.app.use(this.photoPath, photoRoutes);
