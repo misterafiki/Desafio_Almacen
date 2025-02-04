@@ -1,9 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user/user.service';
 import {Role, UserInterface, UserRole} from '../../interfaces/user.interface';
 import {MatDialog} from '@angular/material/dialog';
-import  { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import {ConfirmationDialogComponent} from '../../components/confirmation-dialog/confirmation-dialog.component';
 import {Title} from '@angular/platform-browser';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {FormControl} from '@angular/forms';
+import {TooltipPosition} from '@angular/material/tooltip';
+import {MatSort, Sort} from '@angular/material/sort';
 
 @Component({
   selector: 'app-users-list',
@@ -12,7 +17,7 @@ import {Title} from '@angular/platform-browser';
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css'
 })
-export class UsersListComponent implements OnInit{
+export class UsersListComponent implements OnInit, AfterViewInit{
   users: UserInterface[] = [];
   allUsers: UserInterface[] = [];
   searchTerm: string = '';
@@ -20,6 +25,19 @@ export class UsersListComponent implements OnInit{
   showForm: boolean = false;
   loadError: boolean = false;
   roles: Role['name'][] = ['administrador', 'direccion', 'jefeDepartamento', 'profesor'];
+
+  //Pagination
+  dataSource = new MatTableDataSource<UserInterface>();
+  displayedColumns: string[] = ['name', 'last_name', 'email', 'role', 'actions'];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  //Tooltip
+  positionOptions: TooltipPosition[] = ['below', 'above', 'left', 'right'];
+  position = new FormControl(this.positionOptions[1]);
+
+  //Sort
+  currentSort: Sort = {active: 'id', direction: 'asc'}
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
   showModal = false;
   constructor(
@@ -31,6 +49,19 @@ export class UsersListComponent implements OnInit{
   ngOnInit() {
     this.titleService.setTitle('Admin · Usuarios');
     this.loadUsers();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.sort) {
+        this.sort.sortChange.subscribe((sort: Sort) => {
+          this.currentSort = sort;
+          this.loadUsers(1, this.paginator.pageSize);
+        });
+      } else {
+        console.error('MatSort unavailable');
+      }
+    });
   }
 
   openModal(user: UserInterface | null = null): void {
@@ -52,42 +83,42 @@ export class UsersListComponent implements OnInit{
     this.openModal({...user});
   }
 
-  loadUsers(): void {
+  loadUsers(page: number = 1, limit: number = 5): void {
     this.loadError = false;
-    this.userService.getUsers().subscribe({
+
+    const params = {
+      page: page.toString(),
+      limit: limit.toString(),
+      sortBy: this.currentSort.active,
+      sortOrder: this.currentSort.direction,
+      search: this.searchTerm
+    };
+
+    this.userService.getUsers(params).subscribe({
       next: (response) => {
-        this.allUsers = response.data.map((user: UserInterface) => ({
+        this.dataSource.data = response.data.users.map((user: UserInterface) => ({
           ...user,
           RolesNames: user.User_roles.map((ur: UserRole) => ur.Rol.name).join(', ')
         }));
-        this.users = [...this.allUsers];
-        console.log('Usuarios cargados:', this.users);
+        this.paginator.length = response.data.totalUsers;
+        this.paginator.pageIndex = response.data.currentPage - 1;
       },
       error: (err) => {
         console.error(err);
         this.loadError = true;
-        this.users = [];
-        this.allUsers = [];
+        this.dataSource.data = [];
       }
     });
   }
 
+  onPageChange(event: any): void {
+    const page = event.pageIndex + 1;
+    const limit = event.pageSize;
+    this.loadUsers(page, limit);
+  }
 
   search(): void {
-    if (this.searchTerm) {
-      const searchTermLower = this.searchTerm.toLowerCase();
-      this.users = this.allUsers.filter(user => {
-        const roles = user.RolesNames?.toLowerCase() || '';
-        return (
-          user.id.toString().includes(searchTermLower) ||
-          user.name.toLowerCase().includes(searchTermLower) ||
-          user.email.toLowerCase().includes(searchTermLower) ||
-          roles.includes(searchTermLower)
-        );
-      });
-    } else {
-      this.users = [...this.allUsers];
-    }
+    this.loadUsers(1, this.paginator?.pageSize || 5);
   }
 
   deleteUser(id: number): void {

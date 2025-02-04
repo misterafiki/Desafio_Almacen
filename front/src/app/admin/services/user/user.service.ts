@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {UserInterface} from '../../interfaces/user.interface';
 
@@ -18,8 +18,29 @@ export class UserService {
     });
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/`, { headers: this.getHeaders() });
+  getUsers(params: {
+    page: string,
+    limit: string,
+    sortBy?: string,
+    sortOrder?: string,
+    search?: string,
+  }): Observable<any> {
+    let httpParams = new HttpParams()
+      .set('page', params.page)
+      .set('limit', params.limit);
+
+    if (params.sortBy && params.sortOrder) {
+      httpParams = httpParams
+        .set('sortBy', params.sortBy)
+        .set('sortOrder', params.sortOrder);
+    }
+
+    if (params.search) {
+      httpParams = httpParams
+        .set('search', params.search)
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/`, { params: httpParams, headers: this.getHeaders() });
   }
 
   createUser(user: Partial<UserInterface>): Observable<any> {

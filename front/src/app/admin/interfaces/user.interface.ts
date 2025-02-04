@@ -25,3 +25,16 @@ export interface UserInterface {
   User_roles: UserRole[];
   RolesNames?: string;
 }
+
+export interface PageInterface {
+  totalUsers: number;
+  totalPages: number;
+  currentPage: number;
+  users: UserInterface[];
+}
+
+export interface UserResponseInterface {
+  msg: string;
+  status: boolean;
+  data: PageInterface[];
+}

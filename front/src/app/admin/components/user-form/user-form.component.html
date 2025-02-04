@@ -7,7 +7,8 @@
            [(ngModel)]="formData.name"
            name="name"
            required
-           #nameField="ngModel">
+           #nameField="ngModel"
+           (input)="onInputChange()">
     <div *ngIf="(userForm.submitted || nameField.touched) && nameField.errors?.['required']" class="text-danger">
       El nombre es obligatorio.
     </div>
@@ -19,7 +20,8 @@
            [(ngModel)]="formData.last_name"
            name="last_name"
            required
-           #nameField="ngModel">
+           #nameField="ngModel"
+           (input)="onInputChange()">
     <div *ngIf="(userForm.submitted || nameField.touched) && nameField.errors?.['required']" class="text-danger">
       El apellido es obligatorio.
     </div>
@@ -32,7 +34,8 @@
            name="email"
            required
            email
-           #emailField="ngModel">
+           #emailField="ngModel"
+           (input)="onInputChange()">
     <div *ngIf="(userForm.submitted || emailField.touched) && emailField.errors">
       <div *ngIf="emailField.errors['required']" class="text-danger">
         El email es obligatorio.
@@ -62,7 +65,7 @@
     <button type="button" class="btn btn-secondary" (click)="cancel.emit()">
       Cancelar
     </button>
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" class="btn btn-primary" [disabled]="!hasChanges || userForm.invalid">
       {{ user ? 'Actualizar' : 'Crear' }}
     </button>
   </div>

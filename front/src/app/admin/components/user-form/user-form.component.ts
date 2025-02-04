@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {Role, UserInterface} from '../../interfaces/user.interface';
 import {UserService} from '../../services/user/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -17,8 +17,11 @@ export class UserFormComponent implements OnChanges{
   @Output() submit = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
 
+  @ViewChild('userForm', { static: true }) userForm!: NgForm;
+
   rolesList: Role['name'][] = ['administrador', 'direccion', 'jefeDepartamento', 'profesor'];
   formData: Partial<UserInterface & { role?: string }> = {};
+  hasChanges: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -27,16 +30,23 @@ export class UserFormComponent implements OnChanges{
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['user'] && this.user) {
-      this.formData = {
-        ...this.user
-      };
+      this.formData = { ...this.user };
+      this.hasChanges = false;
     } else {
       this.formData = {};
+      this.hasChanges = false;
+      if (this.userForm) {
+        this.userForm.resetForm();
+      }
     }
   }
 
+  onInputChange() {
+    this.hasChanges = JSON.stringify(this.formData) !== JSON.stringify(this.user);
+  }
+
   onSubmit(form: NgForm): void {
-    if (form.invalid) {
+    if (form.invalid || !this.hasChanges) {
       this.snackBar.openFromComponent(ToastComponent, {
         data: {
           status: 'false',
