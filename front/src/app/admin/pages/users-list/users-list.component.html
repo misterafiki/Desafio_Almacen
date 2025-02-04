@@ -1,7 +1,6 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between mb-3">
-    <input type="text" class="form-control w-50" placeholder="Buscar por ID, nombre, email o rol"
-           [(ngModel)]="searchTerm" (input)="search()">
+    <input type="text" class="form-control w-50" placeholder="Buscar por nombre, apellido o email" [(ngModel)]="searchTerm" (change)="search()">
     <button class="btn btn-primary" (click)="openModal()">
       <i class="bi bi-plus-circle"></i> Nuevo Usuario
     </button>
@@ -19,47 +18,68 @@
     </button>
   </div>
 
-  <div *ngIf="!loadError && users.length === 0" class="alert alert-info">
+  <div *ngIf="!loadError && dataSource.data.length === 0" class="alert alert-info">
     No se encontraron usuarios
   </div>
 
-  <table class="table table-striped" *ngIf="!loadError && users.length > 0">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Rol</th>
-      <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{ user.id }}</td>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.RolesNames ? user.RolesNames : 'Sin rol' }}</td>
-      <td>
-        <button class="btn btn-sm btn-info me-2">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 w-100">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+      <td mat-cell *matCellDef="let user"> {{user.last_name || 'N/A'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Rol </th>
+      <td mat-cell *matCellDef="let user">
+        {{ user.RolesNames ? user.RolesNames : 'Sin rol' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let user">
+        <button class="btn btn-sm btn-info me-2" #tooltip="matTooltip" matTooltip="Gestionar Roles" [matTooltipPosition]="position.value!">
           <i class="bi bi-shield-fill"></i>
         </button>
-        <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)">
+        <button class="btn btn-sm btn-warning me-2" (click)="editUser(user)" #tooltip="matTooltip" matTooltip="Editar Usuario" [matTooltipPosition]="position.value!">
           <i class="bi bi-pencil-fill"></i>
         </button>
-        <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">
+        <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)" #tooltip="matTooltip" matTooltip="Eliminar Usuario" [matTooltipPosition]="position.value!">
           <i class="bi bi-trash-fill"></i>
         </button>
       </td>
-    </tr>
-    </tbody>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]"
+                 showFirstLastButtons
+                 (page)="onPageChange($event)">
+  </mat-paginator>
 </div>
 <!-- Modal -->
 <div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{ selectedUser ? 'Editar Usuario' : 'Nuevo Usuario' }}</h5>
+        <h5 class="modal-title">
+          <i *ngIf="selectedUser" class="bi bi-person-fill-gear"></i>
+          <i *ngIf="!selectedUser" class="bi bi-person-fill-add"></i>
+          {{ selectedUser ? 'Editar Usuario' : 'Nuevo Usuario' }}
+        </h5>
         <button type="button" class="btn-close" (click)="closeModal()"></button>
       </div>
       <div class="modal-body">

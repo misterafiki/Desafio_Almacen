@@ -39,7 +39,7 @@
           </div>
 
           <div *ngIf="loginError" class="alert alert-danger">
-            {{loginError}}
+            Credenciales incorrectas
           </div>
 
           <div class="d-flex justify-content-center pt-5">
@@ -48,7 +48,7 @@
               type="submit"
               [disabled]="!loginForm.valid"
             >
-              <mat-icon>person</mat-icon>Ingresar
+              <mat-icon>person</mat-icon>Iniciar Sesión
             </button>
           </div>
         </form>

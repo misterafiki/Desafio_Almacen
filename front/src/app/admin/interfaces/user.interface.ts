@@ -16,6 +16,7 @@ export interface UserRole {
 export interface UserInterface {
   id: number;
   name: string;
+  last_name: string;
   email: string;
   img?: string;
   createdAt?: string;
@@ -23,4 +24,17 @@ export interface UserInterface {
   deletedAt?: string;
   User_roles: UserRole[];
   RolesNames?: string;
+}
+
+export interface PageInterface {
+  totalUsers: number;
+  totalPages: number;
+  currentPage: number;
+  users: UserInterface[];
+}
+
+export interface UserResponseInterface {
+  msg: string;
+  status: boolean;
+  data: PageInterface[];
 }

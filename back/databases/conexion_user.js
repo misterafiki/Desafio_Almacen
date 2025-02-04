@@ -87,9 +87,23 @@ class ConexionUsers {
     }
 };
 
-    getUsers = async () => {
+    getUsers = async (page = 1, limit = 10, sortBy = 'id', sortOrder = 'ASC', search = '') => {
         try {
-            let result = await User.findAll({
+            const offset = (page - 1) * limit;
+
+            let where = {};
+
+            if (search && search.trim().length > 0) {
+                where = {
+                    [Op.or]: [
+                        { name: { [Op.like]: `%${search}%` } },
+                        { last_name: { [Op.like]: `%${search}%` } },
+                        { email: { [Op.like]: `%${search}%` } },
+                    ]
+                };
+            }
+
+            const result = await User.findAndCountAll({
                 include: [
                     {
                         model: User_role,
@@ -103,19 +117,29 @@ class ConexionUsers {
                         ],
                     },
                 ],
+                limit: limit,
+                offset: offset,
+                order: [[sortBy, sortOrder.toUpperCase()]],
+                where: where
             });
 
-            if (!result || result.length === 0) {
+            if (!result || result.count === 0) {
                 throw new Error('Usuarios no encontrados');
             }
 
-            return result;
+            return {
+                totalUsers: result.count,
+                totalPages: Math.ceil(result.count / limit),
+                currentPage: page,
+                users: result.rows
+            };
         } catch (err) {
             throw err;
         }
     };
 
-  getUserById = async (id) => {
+
+    getUserById = async (id) => {
     try {
       let result = await User.findByPk(id,{
         include: [

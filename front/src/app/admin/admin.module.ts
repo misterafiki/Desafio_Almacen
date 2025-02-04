@@ -8,8 +8,20 @@ import {RouterModule, RouterOutlet} from '@angular/router';
 import { UsersListComponent } from './pages/users-list/users-list.component';
 import {FormsModule} from '@angular/forms';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatSort, MatSortHeader, MatSortModule} from '@angular/material/sort';
 
 
 
@@ -29,6 +41,21 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     MatDialogModule,
     MatButtonModule,
+    MatPaginatorModule,
+    MatTable,
+    MatColumnDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatRow,
+    MatTooltip,
+    MatSort,
+    MatSortHeader,
+    MatSortModule
   ]
 })
 export class AdminModule { }

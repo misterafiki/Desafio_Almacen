@@ -7,17 +7,23 @@ import bcrypt from 'bcrypt';
 
 const conx = new Conexion();
 
-const users_controller = { 
-    getUsers :  async(req, res = response) => {
+const users_controller = {
+    getUsers: async(req = request, res = response) => {
         try {
-            let users = await conx.getUsers()
-            console.log('Listado correcto!');
-            handleSuccess(res, 200, 'Usuarios encontrado correctamente', users);
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const sortBy = req.query.sortBy || "id";
+            const sortOrder = req.query.sortOrder || "asc";
+            const search = req.query.search || '';
+
+            const users = await conx.getUsers(page, limit, sortBy, sortOrder, search);
+
+            console.log(`[${new Date().toJSON()}] Users_Controller: Listing Users`);
+            handleSuccess(res, 200, 'Users found successfully', users);
         } catch (err) {
-            handleError(err,res)
+            handleError(err, res);
         }
     },
-
     getUserById :  async(req, res = response) => {
         let id = req.params.id
         try {
