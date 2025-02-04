@@ -12,7 +12,18 @@
       El nombre es obligatorio.
     </div>
   </div>
-
+  <div class="mb-3">
+    <label class="form-label">Apellidos</label>
+    <input type="text"
+           class="form-control"
+           [(ngModel)]="formData.last_name"
+           name="last_name"
+           required
+           #nameField="ngModel">
+    <div *ngIf="(userForm.submitted || nameField.touched) && nameField.errors?.['required']" class="text-danger">
+      El apellido es obligatorio.
+    </div>
+  </div>
   <div class="mb-3">
     <label class="form-label">Email</label>
     <input type="email"

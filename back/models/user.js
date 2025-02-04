@@ -25,6 +25,7 @@ User.init({
     unique: true
   },
   name: DataTypes.STRING,
+  last_name: DataTypes.STRING,
   password: DataTypes.STRING,
   img:{
     type: DataTypes.STRING,
