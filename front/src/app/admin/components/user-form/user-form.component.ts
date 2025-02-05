@@ -4,6 +4,7 @@ import {UserService} from '../../services/user/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { NgForm } from '@angular/forms';
 import {ToastComponent} from '../../../shared/components/toast/toast.component';
+import {UsersListComponent} from '../../pages/users-list/users-list.component';
 
 @Component({
   selector: 'app-user-form',
@@ -26,6 +27,7 @@ export class UserFormComponent implements OnChanges{
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar,
+    private UsersLists: UsersListComponent
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -65,13 +67,22 @@ export class UserFormComponent implements OnChanges{
       next: (response) => {
         console.log('Usuario guardado:', response);
         this.submit.emit();
+        this.UsersLists.onUserFormSubmit()
+        this.snackBar.openFromComponent(ToastComponent, {
+          data: {
+            status: 'true',
+            message: "Acción realizada correctamente"
+          },
+          duration: 3000
+        });
+        this.userForm.resetForm()
       },
       error: (err) => {
-        console.error('Error al guardar usuario:', err);
+        console.error('Error al guardar usuario:', err.error.msg);
         this.snackBar.openFromComponent(ToastComponent, {
           data: {
             status: 'false',
-            message: 'Error al guardar usuario. Inténtalo de nuevo.'
+            message: err.error.msg
           },
           duration: 3000
         });

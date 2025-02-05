@@ -1,9 +1,8 @@
 import {Sequelize} from "sequelize";
 
 export const handleError = (err,res) => {
-    console.log(err);
-  
-    if (err instanceof Sequelize.UniqueConstraintError) {
+
+    if (err.message === 'El correo electrónico ya está en uso') {
         return res.status(400).json({
             'msg': 'El correo electrónico ya está en uso',
             status: false
